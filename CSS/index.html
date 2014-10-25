@@ -5,7 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="description" content="">
 	<meta name="author" content="Demydova Ganna, Thomas Puttkamer">
-
+	<link rel="stylesheet" type="text/css" href="css/css.css">
+	<link rel="stylesheet" type="text/css" href="css/script.css">
 	<!--<meta name="viewport" content="width=device-width; initial-scale=1.0">-->
 </head>
 <body>
@@ -140,25 +141,33 @@
 			<!-- Es wäre zu überlegen, ob die Elemente zum Hauptartikel oder zur Seite gehören. 
 			Sollte letzteres der Fall sein, so sollten wir sie als <aside> außerhalb des Dokuments führen -->
 			<footer>
-				<aside>
+				<!-- Die Verknüpfung bleibt im Hauptartikel bestehen, da der Bezug zum Artikel besteht.
+				aus die Merkliste gehört jedoch nicht dazu. <section> bleibt zwecks Wartbarkeit erhalten.-->
+				<aside id="verknuepfungen">
 					<section>
 						<!-- mehr dazu -->
-						<p class="capital">
-							mehr dazu unter:
-						</p>
+						<header>
+							<h2>mehr dazu unter:</h2>
+						</header>
 						<ul>
 							<li>
 								Ort
 							</li>
+							<li>
+								Zeit
+							</li>
 						</ul>
 					</section>
-					<section>
-						<!-- auf Merkliste -->
-					</section>
-					
 				</aside>
 			</footer>
 		</article>
+		<!-- Wohin mit der Merkliste? -->
+		<aside>
+			<section>
+				<!-- auf Merkliste -->
+				<p>Auf meine Merkliste</p>
+			</section>			
+		</aside>
 	</main>
 	<footer>
 		<!-- der Footer enthält die Navigation und wird später am unteren Rand angezeigt. -->
@@ -178,7 +187,7 @@
 						<a href="ort.html">Ort</a>
 					</li>
 					<li>
-					<a href="hiergehtsigendwieweiter.html">&gt;&gt;</a>
+						<a href="hiergehtsigendwieweiter.html">&gt;&gt;</a>
 					</li>
 				</ul>
 			</nav>
