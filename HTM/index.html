@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+	<title>Die Umsiedlerin</title>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="author" content="Demydova Ganna, Thomas Puttkamer">
+
+	<!--<meta name="viewport" content="width=device-width; initial-scale=1.0">-->
+</head>
+<body>
+	<header>
+		<!-- Kopf des Dokuments enthält nur den Link zurück -->
+		<a href="/">&lt; &lt; Zurück</a>
+	</header>
+	<main>
+		<article>
+			<!-- Hauptdokument im main -->
+			<header>
+				<!-- Artikelüberschrift -->
+				<h1>Die Umsiedlerin</h1>
+			</header>
+			<!-- Unterabschnitte stellen wir semantisch durch eigene Sections dar -->
+			<section>
+				<!-- Zeitdokumente -->
+				<header>
+					<!-- Überschrift von Abschnitten werden in Header eingebunden, 
+					um sie vom Hauptteil des Unterabschnitts semantisch abzugrenzen -->
+					<h2>Zeitdokumente</h2>
+				</header>
+				<figure>
+					<img src="bilder/....png" height="" alt="" />
+					<figcaption>
+						Programmheft zur Urauff&uuml;hrung
+					</figcaption>
+				</figure>
+			</section>
+			<section>
+				<!-- Unterabschnitt Bilder -->
+				<!-- Im Entwurf ähnelt die Bilder Anordnung der Bilder einer Liste, 
+				weshalb wir die unordered list  <ul> nutzen -->
+				<ul>
+					<li>
+						<figure>
+							<img src="bilder/....png" height="" alt="" />
+						</figure>	
+					</li>
+					<li>
+						<figure>
+							<img src="bilder/....png" height="" alt="" />
+						</figure>	
+					</li>
+					<li>
+						<figure>
+							<img src="bilder/....png" height="" alt="" />
+						</figure>	
+					</li>
+				</ul>
+				<footer>
+					<a href="" title="" ="Close pictures"><img src="[...]" alt="Closing button" /></a>
+				</footer>
+			</section>
+			
+			<section>
+				<!-- Unterabschnitt Einführungstext -->
+				<header>
+					<h2>"Die Umsiedlerin oder das Leben auf dem Lande"</h2>	
+				</header>
+				<p>
+					<!-- Wir haben dem Text ein wenig Blindtext angefügt, um diesen in der CSS-Aufgabe zu bearbeiten -->
+					Heiner M&uuml;llers St&uuml;ckspannt einen historischen Bogen von der Bodenreform 1945 bis zur Kollektivierung und Bildung der Landwirtschaftlichen.
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+				</p>
+				<footer>
+					<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
+					<!-- TODO: Klären ob der Pfeil auch zur Navigation dient -->
+					<a href="/"><img src="bilder/pfeife.png" alt="Arrow" /> weiter lesen</a>
+				</footer>
+			</section>
+
+			<section>
+				<!-- Unterabschnitt Textauszug -->
+				<header>
+					<h2>Textauszug</h2>	
+				</header>
+				<!-- Überlegung, wie wir mit den DIVs umgehen wollen. DIVs stellen keine semantische Verbindung
+				im Text dar, sollten also nach Möglichkeit ersetzt werden. -->
+				<div class="szene">
+					<div class="regieanweisungen">
+						14
+						<br>
+						Kate
+						<br>
+						Niet, Fondrak
+					</div>
+					<div class="dialogschritt">
+						<span class="akteur">Fondrak</span>
+						<span class="aeuserung">Ich geh zum Amerikaner. Gehst du mit?</span>
+						<span class="akteur">Niet</span>
+						<span class="aeuserung">Ich bleib wo ich was krieg</span>
+						<span class="akteur">Fondrak</span>
+						<span class="aeuserung">Schei&szlig; drauf. Das düngt</span>
+					</div>
+					<div class="regienanweisungen">
+						Pause
+					</div>
+				</div>
+				<footer>
+					<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
+					<!-- TODO: Klären ob der Pfeil auch zur Navigation dient -->
+					<a href="/"><img src="bilder/pfeife.png" alt="Arrow" /> weiter lesen</a>
+				</footer>
+			</section>
+			<section>
+				<!-- Kommentar -->
+				<header>
+					<a href="/"> <h2>Kommentar</h2> <img src="bilder/pfeife.png" height="" alt=""></a>	
+				</header>
+				<ul class="dash">
+					<li>
+						Hochschule f&uuml;r &Ouml;konomie
+					</li>
+				</ul>
+			</section>
+			<section>
+				<!-- Filme und Audio -->
+				<header>
+					<a href="/"> <h2>Filme und Audio</h2> <img src="bilder/pfeife.png" height="" alt=""></a>	
+				</header>
+				<ul class="dash">
+					<li>
+						&Uuml;ber Tiere und Menschen
+					</li>
+					<li>
+						Demo Alexanderplatz 1989
+					</li>
+				</ul>
+			</section>
+
+			<!-- Es wäre zu überlegen, ob die Elemente zum Hauptartikel oder zur Seite gehören. 
+			Sollte letzteres der Fall sein, so sollten wir sie als <aside> außerhalb des Dokuments führen -->
+			<footer>
+				<aside>
+					<section>
+						<!-- mehr dazu -->
+						<p class="capital">
+							mehr dazu unter:
+						</p>
+						<ul>
+							<li>
+								Ort
+							</li>
+						</ul>
+					</section>
+					<section>
+						<!-- auf Merkliste -->
+					</section>
+					
+				</aside>
+			</footer>
+		</article>
+	</main>
+	<footer>
+		<!-- der Footer enthält die Navigation und wird später am unteren Rand angezeigt. -->
+		<section>
+			<nav id="menu">
+				<ul>
+					<li class="current_page_item">
+						<a href="archiv.html">Archiv</a>
+					</li>
+					<li>
+						<a href="werk.html">Werk</a>
+					</li>
+					<li>
+						<a href="zeit.html">Zeit</a>
+					</li>
+					<li>
+						<a href="ort.html">Ort</a>
+					</li>
+					<li>
+					<a href="hiergehtsigendwieweiter.html">&gt;&gt;</a>
+					</li>
+				</ul>
+			</nav>
+		</section>
+	</footer>
+</body>
+</html>
