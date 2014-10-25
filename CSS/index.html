@@ -5,8 +5,12 @@
 	<meta charset="utf-8">
 	<meta name="description" content="">
 	<meta name="author" content="Demydova Ganna, Thomas Puttkamer">
+	<link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
+
+
 	<link rel="stylesheet" type="text/css" href="css/css.css">
 	<link rel="stylesheet" type="text/css" href="css/script.css">
+	<link rel="stylesheet" type="text/css" href="css/uebung.css">
 	<!--<meta name="viewport" content="width=device-width; initial-scale=1.0">-->
 </head>
 <body>
@@ -79,14 +83,16 @@
 				</footer>
 			</section>
 
-			<section>
+			<section class="textauszug">
 				<!-- Unterabschnitt Textauszug -->
 				<header>
 					<h2>Textauszug</h2>	
 				</header>
 				<!-- Überlegung, wie wir mit den DIVs umgehen wollen. DIVs stellen keine semantische Verbindung
-				im Text dar, sollten also nach Möglichkeit ersetzt werden. -->
-				<div class="szene">
+				im Text dar, sollten also nach Möglichkeit ersetzt werden. 
+				Der Text stellt einen in sich geschlossenen article dar, weshalb das semantische Element statt des
+				Divs genutzt wird. -->
+				<article class="szene">
 					<div class="regieanweisungen">
 						14
 						<br>
@@ -105,30 +111,37 @@
 					<div class="regienanweisungen">
 						Pause
 					</div>
-				</div>
+					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+				</article>
 				<footer>
 					<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
-					<!-- TODO: Klären ob der Pfeil auch zur Navigation dient -->
-					<a href="/"><img src="bilder/pfeife.png" alt="Arrow" /> weiter lesen</a>
+					<!-- TODO: Klären ob der Pfeil auch zur Navigation dient | nur Style deshalb entfernt -->
+					<a href="/">weiter lesen</a>
 				</footer>
 			</section>
-			<section>
+			<section class="medienweise">
 				<!-- Kommentar -->
 				<header>
-					<a href="/"> <h2>Kommentar</h2> <img src="bilder/pfeife.png" height="" alt=""></a>	
+					<a href="/"><h2>Kommentar</h2></a>	
 				</header>
-				<ul class="dash">
+				<ul>
 					<li>
 						Hochschule f&uuml;r &Ouml;konomie
 					</li>
+					<li>
+						Lorem ipsum dolor sit amet
+					</li>
+					<li>
+						consetetur sadipscing elit
+					</li>
 				</ul>
 			</section>
-			<section>
+			<section class="medienweise">
 				<!-- Filme und Audio -->
 				<header>
-					<a href="/"> <h2>Filme und Audio</h2> <img src="bilder/pfeife.png" height="" alt=""></a>	
+					<a href="/"> <h2>Filme und Audio</h2></a>	
 				</header>
-				<ul class="dash">
+				<ul>
 					<li>
 						&Uuml;ber Tiere und Menschen
 					</li>
