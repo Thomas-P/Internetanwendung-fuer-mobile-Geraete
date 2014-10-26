@@ -5,6 +5,8 @@
 	<meta charset="utf-8">
 	<meta name="description" content="">
 	<meta name="author" content="Demydova Ganna, Thomas Puttkamer">
+	<meta name="viewport" content="width=640; initial-scale=1.0">
+
 	<link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
 
 
@@ -26,63 +28,17 @@
 				<h1>Die Umsiedlerin</h1>
 			</header>
 			<!-- Unterabschnitte stellen wir semantisch durch eigene Sections dar -->
-			<section>
-				<!-- Zeitdokumente -->
+			<!-- Abschnitt mit dem Objekt gemäß Aufgabenstellung aus CSS -->
+			<section class="objekt">
+				<!-- Abbildung eines Objekts gemäß CSS-Aufgabe -->
 				<header>
 					<!-- Überschrift von Abschnitten werden in Header eingebunden, 
 					um sie vom Hauptteil des Unterabschnitts semantisch abzugrenzen -->
-					<h2>Zeitdokumente</h2>
+					<h2>Objekt</h2>
 				</header>
-				<figure>
-					<img src="bilder/....png" height="" alt="" />
-					<figcaption>
-						Programmheft zur Urauff&uuml;hrung
-					</figcaption>
-				</figure>
+				<img src="img/hm_mit_bk_tragelehn.jpg" alt="Abbildung zwei Männer" />
 			</section>
-			<section>
-				<!-- Unterabschnitt Bilder -->
-				<!-- Im Entwurf ähnelt die Bilder Anordnung der Bilder einer Liste, 
-				weshalb wir die unordered list  <ul> nutzen -->
-				<ul>
-					<li>
-						<figure>
-							<img src="bilder/....png" height="" alt="" />
-						</figure>	
-					</li>
-					<li>
-						<figure>
-							<img src="bilder/....png" height="" alt="" />
-						</figure>	
-					</li>
-					<li>
-						<figure>
-							<img src="bilder/....png" height="" alt="" />
-						</figure>	
-					</li>
-				</ul>
-				<footer>
-					<a href="" title="" ="Close pictures"><img src="[...]" alt="Closing button" /></a>
-				</footer>
-			</section>
-			
-			<section>
-				<!-- Unterabschnitt Einführungstext -->
-				<header>
-					<h2>"Die Umsiedlerin oder das Leben auf dem Lande"</h2>	
-				</header>
-				<p>
-					<!-- Wir haben dem Text ein wenig Blindtext angefügt, um diesen in der CSS-Aufgabe zu bearbeiten -->
-					Heiner M&uuml;llers St&uuml;ckspannt einen historischen Bogen von der Bodenreform 1945 bis zur Kollektivierung und Bildung der Landwirtschaftlichen.
-					Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-				</p>
-				<footer>
-					<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
-					<!-- TODO: Klären ob der Pfeil auch zur Navigation dient -->
-					<a href="/"><img src="bilder/pfeife.png" alt="Arrow" /> weiter lesen</a>
-				</footer>
-			</section>
-
+			<!-- Alle für die Aufgabe nicht benötigten Teile wurden entfernt -->
 			<section class="textauszug">
 				<!-- Unterabschnitt Textauszug -->
 				<header>
@@ -119,38 +75,34 @@
 					<a href="/">weiter lesen</a>
 				</footer>
 			</section>
-			<section class="medienweise">
-				<!-- Kommentar -->
-				<header>
-					<a href="/"><h2>Kommentar</h2></a>	
-				</header>
-				<ul>
-					<li>
-						Hochschule f&uuml;r &Ouml;konomie
-					</li>
-					<li>
-						Lorem ipsum dolor sit amet
-					</li>
-					<li>
-						consetetur sadipscing elit
-					</li>
-				</ul>
-			</section>
-			<section class="medienweise">
-				<!-- Filme und Audio -->
-				<header>
-					<a href="/"> <h2>Filme und Audio</h2></a>	
-				</header>
-				<ul>
-					<li>
-						&Uuml;ber Tiere und Menschen
-					</li>
-					<li>
-						Demo Alexanderplatz 1989
-					</li>
-				</ul>
-			</section>
-
+			<!-- Div, um den Umbruch des Inhalts zu ermöglichen -->
+			<div class="wrapper">
+				<section class="medienweise">
+					<!-- Kommentar -->
+					<header>
+						<a href="/"><h2>Kommentar</h2></a>	
+					</header>
+					<ul>
+						<li>
+							Hochschule f&uuml;r &Ouml;konomie
+						</li>
+					</ul>
+				</section>
+				<section class="medienweise">
+					<!-- Filme und Audio -->
+					<header>
+						<a href="/"> <h2>Filme und Audio</h2></a>	
+					</header>
+					<ul>
+						<li>
+							&Uuml;ber Tiere und Menschen
+						</li>
+						<li>
+							Demo Alexanderplatz 1989
+						</li>
+					</ul>
+				</section>
+			</div>
 			<!-- Es wäre zu überlegen, ob die Elemente zum Hauptartikel oder zur Seite gehören. 
 			Sollte letzteres der Fall sein, so sollten wir sie als <aside> außerhalb des Dokuments führen -->
 			<footer>

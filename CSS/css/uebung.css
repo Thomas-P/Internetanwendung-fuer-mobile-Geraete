@@ -12,6 +12,7 @@ html {
 	margin: 0;
 	padding: 20px;
 	width: 360px;
+	display: block;
 }
 /* Überschrift 
 	Vorgaben: 
@@ -26,7 +27,7 @@ html {
 	Keine Linienhöhen angegeben, deshalb 40px, gemäß Abbildung
 */
 
-.medienweise h2, .textauszug h2 {
+.medienweise h2, .textauszug h2, .objekt h2 {
 	margin: 0;
 	padding: 0;
 	font-family: 'Avenir Medium', sans-serif;
@@ -83,7 +84,6 @@ html {
 	font-size: 30px;
 	line-height: 40px;
 	font-family: 'Avenir Roman', sans-serif;
-	font-family: 'Nunito', sans-serif;
 	color: rgb(242,242,242);
 	padding: 20px 0;
 	display: block;
@@ -151,4 +151,67 @@ html {
 	margin: 0;
 	padding: 0 0 0 50px;
 	text-decoration: none;
+}
+
+.objekt {
+	margin: 0;
+	padding: 20px;
+	background: rgb(45,45,45);
+	max-width: 560px;
+	max-height: 560px;
+}
+
+.objekt header {
+	height: 80px;
+	margin: 0 10px 0 0;
+	background-image: url(img/Kringel01.png);
+	background-repeat: no-repeat;
+	background-position: right top; 
+	background-size: contain;
+}
+
+
+.objekt h2 {
+	margin: 0;
+	padding: 0 0 20px 0;
+	box-sizing: content-box;
+	width: calc( 100% + 10px );
+	color: rgb(128,128,128);
+
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-color: rgb(128,128,128);
+
+}
+
+.objekt img {
+	box-sizing: content-box;
+	margin: 30px 10px 30px 0;
+	max-width: 510px;
+	max-height: 380px;
+}
+
+main > article {
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+
+.objekt, .textauszug, .wrapper {
+	float:left;
+	margin-right: 20px;
+}
+.wrapper {
+	width: 400px;
+	display: inline-block;
+}
+
+.medienweise {
+	display: block;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+footer {
+	clear: both;
 }
