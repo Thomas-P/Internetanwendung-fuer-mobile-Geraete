@@ -1,39 +1,35 @@
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 *, *:before, *:after {
-  box-sizing: inherit;
+	box-sizing: inherit;
 }
-
 .medienweise {
 	box-sizing: content-box;
 	background: rgb(45,45,45);
 	margin: 0;
-	padding: 20px;
-	width: 360px;
+	padding: 10px;
+	width: 180px;
 	display: block;
 }
-/* Überschrift 
-	Vorgaben: 
-		Font: Avenir Medium 40 pt 
-		Farbe: 63,169,245;
-
-		http://joelcrawfordsmith.com/new/font/avenir
-		https://www.google.com/fonts/specimen/Nunito
-
-	Testweise Nunito als Schriftart
-	wirklich 40pt? 40px sieht passender aus
-	Keine Linienhöhen angegeben, deshalb 40px, gemäß Abbildung
-*/
-
+/* Uberschrift
+ Vorgaben:
+ Font: Avenir Medium 40 pt
+ Farbe: 63,169,245;
+ http://joelcrawfordsmith.com/new/font/avenir
+ https://www.google.com/fonts/specimen/Nunito
+ Testweise Nunito als Schriftart
+ wirklich 40pt? 40px sieht passender aus
+ Keine Linienhohen angegeben, deshalb 40px, gema? Abbildung
+ */
 .medienweise h2, .textauszug h2, .objekt h2 {
 	margin: 0;
 	padding: 0;
 	font-family: 'Avenir Medium', sans-serif;
 	font-family: 'Nunito', sans-serif;
-	font-size: 40px;
-	line-height: 40px;
+	font-size: 20px;
+	line-height: 20px;
 	color: rgb(63,169,245);
 	display: block;
 }
@@ -41,104 +37,99 @@ html {
 	margin: 0;
 	padding: 0;
 	display: block;
+	text-decoration: none;
 	background-image: url(img/Pfeil02.png);
 	background-repeat: no-repeat;
 	background-position: right top;
 	background-size: contain;
 }
-/** Trennlinie wird durch header markiert 
-	Vorgabe: 
-		Strichlänge 360px; // durch medienweisebox realisiert
-		Stärke 1px dashed 5px //use http://thephuse.com/development/customizing-your-dashed-and-dotted-borders-in-css3/
-		Farbe: rgb(242,242,242);
-
-**/
+/** Trennlinie wird durch header markiert
+ Vorgabe:
+ Strichlange 360px; // durch medienweisebox realisiert
+ Starke 1px dashed 5px //use http://thephuse.com/development/customizing-your-dashed-and-dotted-borders-in-css3/
+ Farbe: rgb(242,242,242);
+ **/
 .medienweise header {
 	margin: 0;
-	padding: 0 0 20px 0;
+	padding: 0 0 10px 0;
 	display: block;
 	border-bottom-style: dashed;
 	border-bottom-width: 1px;
 	border-color: rgb(242,242,242);
 }
 /**
-	Umsetzung der Liste
-	Zurücksetzen von margin, padding und list-style
-
-**/
+ Umsetzung der Liste
+ Zurucksetzen von margin, padding und list-style
+ **/
 .medienweise ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 /**
-	Aufzählung
-	nach Vorgabe oben und unten 20px padding 
-	Linie:dashed unterhalb des Elements
-	Rest wie aufgeführt
-	Linienhöhe nicht angegeben?
-	pt statt px?
-
-*/
+ Aufzahlung
+ nach Vorgabe oben und unten 20px padding
+ Linie:dashed unterhalb des Elements
+ Rest wie aufgefuhrt
+ Linienhohe nicht angegeben?
+ pt statt px?
+ */
 .medienweise li {
-	font-size: 30px;
-	line-height: 40px;
+	font-size: 15px;
+	line-height: 20px;
 	font-family: 'Avenir Roman', sans-serif;
 	color: rgb(242,242,242);
-	padding: 20px 0;
+	padding: 10px 0;
 	display: block;
 	border-bottom-style: dashed;
 	border-bottom-width: 1px;
 	border-color: rgb(242,242,242);
 }
-/* Unter der letzten Aufzählung kein Border: dashed; */
+/* Unter der letzten Aufzahlung kein Border: dashed; */
 .medienweise li:last-child {
 	border: none;
 }
-
 .textauszug {
 	box-sizing: content-box;
 	background-image: url(img/BackgroundMerkliste.png);
 	background-repeat: repeat;
-	width: 360px;
-	padding: 20px;
+	width: 180px;
+	padding: 10px;
 	margin: 0;
 }
 /** [REFACTORED TO .medienweise h2]
-.textauszug h2 {
-	margin: 0;
-	padding: 0;
-	font-family: 'Avenir Medium', sans-serif;
-	font-family: 'Nunito', sans-serif;
-	font-size: 40px;
-	line-height: 40px;
-	color: rgb(63,169,245);
-	display: block;
-}
-
-**/
+ .textauszug h2 {
+ margin: 0;
+ padding: 0;
+ font-family: 'Avenir Medium', sans-serif;
+ font-family: 'Nunito', sans-serif;
+ font-size: 40px;
+ line-height: 40px;
+ color: rgb(63,169,245);
+ display: block;
+ }
+ **/
 .textauszug header {
 	margin: 0;
-	padding: 0 0 20px 0;
+	padding: 0 0 10px 0;
 }
 .textauszug .szene {
-	height: 390px;
+	height: 195px;
 	display: block;
 	overflow: hidden;
 	font-family: 'Marion Regular', sans-serif;
-	font-size: 30px;
-	margin: 20px 0 40px 0;
+	font-size: 15px;
+	margin: 10px 0 20px 0;
 	padding: 0;
 	color: rgb(77,77,77);
 }
 /*
-.textauszug footer {
-	background-image: url(img/Pfeil02.png);
-	background-repeat: no-repeat;
-	background-position: left top;
-	background-size: contain;
-}*/
-
+ .textauszug footer {
+ background-image: url(img/Pfeil02.png);
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-size: contain;
+ }*/
 .textauszug footer a {
 	background-image: url(img/Pfeil02.png);
 	background-repeat: no-repeat;
@@ -146,72 +137,66 @@ html {
 	background-size: contain;
 	display: block;
 	font-family: 'Marion Regular', sans-serif;
-	font-size: 30px;
-	line-height: 30px;
+	font-size: 15px;
+	line-height: 15px;
 	margin: 0;
-	padding: 0 0 0 50px;
+	padding: 0 0 0 25px;
 	text-decoration: none;
+	color: rgb(63,169,245);
 }
-
 .objekt {
 	margin: 0;
-	padding: 20px;
+	padding: 10px;
 	background: rgb(45,45,45);
-	max-width: 560px;
-	max-height: 560px;
+	max-width: 280px;
+	max-height: 280px;
 }
-
 .objekt header {
-	height: 80px;
-	margin: 0 10px 0 0;
+	height: 40px;
+	margin: 0 5px 0 0;
 	background-image: url(img/Kringel01.png);
 	background-repeat: no-repeat;
-	background-position: right top; 
+	background-position: right top;
 	background-size: contain;
 }
-
-
 .objekt h2 {
 	margin: 0;
-	padding: 0 0 20px 0;
+	padding: 0 0 10px 0;
 	box-sizing: content-box;
-	width: calc( 100% + 10px );
+	width: calc( 100% + 5px );
 	color: rgb(128,128,128);
-
 	border-bottom-style: dashed;
 	border-bottom-width: 1px;
 	border-color: rgb(128,128,128);
-
 }
-
 .objekt img {
 	box-sizing: content-box;
-	margin: 30px 10px 30px 0;
-	max-width: 510px;
-	max-height: 380px;
+	margin: 15px 5px 15px 0;
+	max-width: 255px;
+	max-height: 190px;
 }
-
 main > article {
 	white-space: nowrap;
 	overflow-x: auto;
+	display: block;
 }
-
-
-.objekt, .textauszug, .wrapper {
-	float:left;
-	margin-right: 20px;
-}
-.wrapper {
-	width: 400px;
+.objekt, .textauszug, .wrapper, #verknuepfungen {
+	margin-right: 10px;
+	vertical-align:top;
+	white-space: normal;
 	display: inline-block;
 }
-
+.wrapper {
+	width: 200px;
+	display: inline-block;
+}
 .medienweise {
 	display: block;
-	margin-right: 20px;
-	margin-bottom: 20px;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
 
-footer {
+body > footer {
 	clear: both;
 }
+
