@@ -178,9 +178,12 @@ html {
 main > article {
 	white-space: nowrap;
 	overflow-x: auto;
-	overflow-x:scroll;
-}
+	}
 
+#scrolling{
+	overflow-x:scroll;
+
+}
 .objekt, .textauszug, .wrapper {
 /*	float: left;*/
 	margin-right: 10px;
