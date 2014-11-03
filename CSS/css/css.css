@@ -178,18 +178,18 @@ html {
 main > article {
 	white-space: nowrap;
 	overflow-x: auto;
-	}
+}
 
-#scrolling{
-	overflow-x:scroll;
-
+#scrolling {
+	overflow-x: scroll;
+	overflow-y: hidden;
 }
 .objekt, .textauszug, .wrapper {
-/*	float: left;*/
+	/*	float: left;*/
 	margin-right: 10px;
 	display: inline-block;
-		vertical-align: top;
-		white-space:normal ;
+	vertical-align: top;
+	white-space: normal;
 }
 .wrapper {
 	width: 200px;
@@ -200,12 +200,27 @@ main > article {
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
-.regieanweisungen{ 
+.regieanweisungen {
 	font-style: italic;
-	 }
-	 .akteur{
-	 	text-transform: uppercase;
-	 }
+}
+.akteur {
+	text-transform: uppercase;
+}
+.kante {
+	font-family: "Avenir Black", sans-serif;
+	font-size: 13pt;
+	margin: 0px;
+	padding-left: 10px;
+	line-height: 30px;
+	background: rgb(128,128,128);
+}
+
+.kante a {
+	vertical-align: middle;
+	
+	color: rgb(179,179,179);
+	text-decoration: none;
+}
 
 footer {
 	clear: both;
