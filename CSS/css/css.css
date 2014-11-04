@@ -207,17 +207,18 @@ main > article {
 	text-transform: uppercase;
 }
 .kante {
+
 	font-family: "Avenir Black", sans-serif;
 	font-size: 13pt;
 	margin: 0px;
 	padding-left: 10px;
 	line-height: 30px;
-	background: rgb(128,128,128);
+	background: linear-gradient(to top, black, rgb(128,128,128));
+	color: rgb(128,128,128);
 }
 
 .kante a {
 	vertical-align: middle;
-	
 	color: rgb(179,179,179);
 	text-decoration: none;
 }
