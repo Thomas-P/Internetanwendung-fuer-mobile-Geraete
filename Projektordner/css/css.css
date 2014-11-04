@@ -161,6 +161,9 @@ pt statt px?
 	padding: 0;
 	color: rgb(77,77,77);
 }
+#textauszug span {
+	display: block;
+}
 #textauszug footer a {
 	background-image: url('img/Pfeil02.png');
 	background-repeat: no-repeat;
@@ -292,24 +295,78 @@ body > header > a {
 	padding: 0 0 0 10px;
 }
 
-main.detail #objekt, main.detail .wrapper {
+/** Detailansicht Textauszug **/
+body.detail #objekt, body.detail .wrapper, body.detail > footer {
 	display: none;
 }
 
 #einfuehrungstext {
 	display: none;
 }
-main.detail #einfuehrungstext {
-	display: block;
-}
+/** Hauptüberschrift im Artikel **/
+body.detail h1 {
+	box-sizing: content-box;
+	width: 300px;
 
-main.detail h1 {
 	font-family: "Avenir Black", sans-serif;
 	font-size: 20pt;
 	font-weight: normal;
 	font-style: normal;
 	color: rgb(63,169,245);
-	margin: 0;
-	padding: 10px;
 
+	margin: 0 10px 15px 10px;
+	padding: 10px 0 15px 0;
+
+	border: none;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-color: rgb(63,169,245);
+
+}
+
+body.detail {
+	z-index: 10;
+}
+body.detail main {
+	margin-top: 30px;
+	display: block;
+}
+
+body.detail main * {
+	background: white;
+}
+body.detail #mainScrollArea {
+	overflow: hidden;
+	height: auto
+}
+
+body.detail #textauszug {
+	box-sizing: content-box;
+	width: 300px;
+	height: auto;
+	padding: 0;
+	margin: 0 10px;
+
+	background: none;
+	display: block;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+body.detail #textauszug .szene {
+	height: auto;
+}
+body.detail #textauszug footer {
+	display: none;
+}
+
+body.detail #textauszug > header {
+	display: none;
+}
+
+body.detail > header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1;
 }
