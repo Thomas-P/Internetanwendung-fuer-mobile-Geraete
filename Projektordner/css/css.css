@@ -296,6 +296,7 @@ body > header > a {
 }
 
 /** Detailansicht Textauszug **/
+/** It could be possible that we had to rename detail in detailTextauszug **/
 body.detail #objekt, body.detail .wrapper, body.detail > footer {
 	display: none;
 }
