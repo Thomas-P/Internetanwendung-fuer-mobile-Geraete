@@ -5,17 +5,18 @@
 	<meta charset="utf-8">
 	<meta name="description" content="">
 	<meta name="author" content="Demydova Ganna, Thomas Puttkamer">
-	<meta name="viewport" content="width=320; initial-scale=1.0">
+	<meta name="viewport" content="width=320, initial-scale=1.0">
 
 	<link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
 
 	<link rel="stylesheet" type="text/css" href="css/css.css">
+	<script type="text/javascript" src="./js/detailview.js"></script>
 </head>
 <!-- <body>-->
-<body class="detail">
+<body>
 	<header>
 		<!-- Kopf des Dokuments enthält nur den Link zurück -->
-		<a href="/">&lt;&lt; Zurück</a>
+		<a href="/" id="zurueck">&lt;&lt; Zurück</a>
 	</header>
 	<main>
 		<article>
@@ -54,7 +55,7 @@
 					<footer>
 						<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
 						<!-- TODO: Klären ob der Pfeil auch zur Navigation dient -->
-						<a href="/"><img src="bilder/pfeife.png" alt="Arrow" /> weiter lesen</a>
+						<a href="/" class="detailView"><img src="bilder/pfeife.png" alt="Arrow" /> weiter lesen</a>
 					</footer>
 				</section>
 
@@ -98,7 +99,7 @@
 					<footer>
 						<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
 						<!-- TODO: Klären ob der Pfeil auch zur Navigation dient | nur Style deshalb entfernt -->
-						<a href="/">weiter lesen</a>
+						<a href="/" class="detailView">weiter lesen</a>
 					</footer>
 				</section>
 				<!-- Div, um den Umbruch des Inhalts zu ermöglichen -->

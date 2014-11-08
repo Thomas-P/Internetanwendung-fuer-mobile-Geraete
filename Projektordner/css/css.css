@@ -249,6 +249,7 @@ body {
 #mainScrollArea {
 	white-space: nowrap;
 	overflow-x: scroll;
+	font-size: 0px;
 }
 
 /* Haupttitel */
@@ -282,17 +283,19 @@ body > header {
 	display: block;
 	height: 30px;
 	background-color: rgb(60,60,60);
+	background: linear-gradient(to top, black, rgb(64,64,64));
 }
 
 body > header > a {
 	font-family: "Avenir Black", sans-serif;
 	color: rgb(128,128,128);
-	font-size: 27px;
+	font-size: 14px;
 	vertical-align: middle;
 	text-decoration: none;
 	height: 30px;
 	width: 100%;
-	padding: 0 0 0 10px;
+	padding: 5px 0 0 10px;
+	display: block;
 }
 
 /** Detailansicht Textauszug **/
@@ -307,8 +310,6 @@ body.detail #objekt, body.detail .wrapper, body.detail > footer {
 /** Hauptüberschrift im Artikel **/
 body.detail h1 {
 	box-sizing: content-box;
-	width: 300px;
-
 	font-family: "Avenir Black", sans-serif;
 	font-size: 20pt;
 	font-weight: normal;
@@ -324,6 +325,13 @@ body.detail h1 {
 	border-color: rgb(63,169,245);
 
 }
+body.detail > header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1;
+}
 
 body.detail {
 	z-index: 10;
@@ -338,20 +346,18 @@ body.detail main * {
 }
 body.detail #mainScrollArea {
 	overflow: hidden;
-	height: auto
+	overflow-y: auto;
 }
 
 body.detail #textauszug {
 	box-sizing: content-box;
-	width: 300px;
+	width: auto;
 	height: auto;
 	padding: 0;
 	margin: 0 10px;
 
 	background: none;
 	display: block;
-	overflow-x: hidden;
-	overflow-y: auto;
 }
 body.detail #textauszug .szene {
 	height: auto;
@@ -364,10 +370,12 @@ body.detail #textauszug > header {
 	display: none;
 }
 
-body.detail > header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 1;
+main {
+	opacity: 1.0;
+	transition: opacity 2s
+}
+
+main.fade-out {
+	opacity: 0;
+	transition: opacity 2s
 }
