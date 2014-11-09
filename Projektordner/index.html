@@ -16,7 +16,7 @@
 <body>
 	<header>
 		<!-- Kopf des Dokuments enthält nur den Link zurück -->
-		<a href="/" id="zurueck">&lt;&lt; Zurück</a>
+		<a href="/" id="zurueck" class="detail-back">&lt;&lt; Zurück</a>
 	</header>
 	<main>
 		<article>
@@ -42,7 +42,7 @@
 						</figcaption>
 					</figure>
 				</section>
-				<section id="einfuehrungstext">
+				<section id="einfuehrungstext" class="detail-view">
 					<!-- Unterabschnitt Einführungstext -->
 					<header>
 						<h2>"Die Umsiedlerin oder das Leben auf dem Lande"</h2>	
@@ -55,12 +55,12 @@
 					<footer>
 						<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
 						<!-- TODO: Klären ob der Pfeil auch zur Navigation dient -->
-						<a href="/" class="detailView"><img src="bilder/pfeife.png" alt="Arrow" /> weiter lesen</a>
+						<a href="/" class="detail-switch">weiter lesen</a>
 					</footer>
 				</section>
 
 				<!-- Alle für die Aufgabe nicht benötigten Teile wurden entfernt -->
-				<section id="textauszug">
+				<section id="textauszug" class="detail-view">
 					<!-- Unterabschnitt Textauszug -->
 					<header>
 						<h2>Textauszug</h2>	
@@ -99,7 +99,7 @@
 					<footer>
 						<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
 						<!-- TODO: Klären ob der Pfeil auch zur Navigation dient | nur Style deshalb entfernt -->
-						<a href="/" class="detailView">weiter lesen</a>
+						<a href="/" class="detail-switch">weiter lesen</a>
 					</footer>
 				</section>
 				<!-- Div, um den Umbruch des Inhalts zu ermöglichen -->
