@@ -10,8 +10,9 @@
 	<link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
 
 	<link rel="stylesheet" type="text/css" href="css/css.css">
-	<script type="text/javascript" src="./js/detailview.js"></script>
 	<script type="text/javascript" src="./js/xhr.js"></script>
+	<script type="text/javascript" src="./js/detailview.js"></script>
+	<script type="text/javascript" src="./js/viewController.js"></script>
 	<script type="text/javascript" src="./js/configChanger.js"></script>
 </head>
 <!-- <body>-->
@@ -31,6 +32,10 @@
 				<h1>Die Umsiedlerin</h1>
 			</header>
 			<div id="mainScrollArea">
+				<!-- dump render container -->
+				<div class="render-container" id="left"></div>
+				<div class="render-container" id="middle"></div>
+				<div class="render-container" id="right"></div>
 				<!-- Unterabschnitte stellen wir semantisch durch eigene Sections dar -->
 				<!-- Abschnitt mit dem Objekt gemäß Aufgabenstellung aus CSS -->
 				<section id="objekt">
@@ -38,7 +43,8 @@
 					<header>
 						<!-- Überschrift von Abschnitten werden in Header eingebunden, -->
 						<!-- um sie vom Hauptteil des Unterabschnitts semantisch abzugrenzen -->
-						<h2>Objekt</h2>
+						<h2>Zeitdokumente</h2>
+						<span id="objektKringel"></span>
 					</header>
 					<figure>
 						<img src="img/hm_mit_bk_tragelehn.jpg" alt="Abbildung zwei Männer" />
@@ -75,6 +81,7 @@
 					<!-- Der Text stellt einen in sich geschlossenen article dar, weshalb das semantische Element statt des -->
 					<!-- Divs genutzt wird. -->
 					<article class="szene">
+						<!-- moved to file
 						<p class="regieanweisungen">
 							<span>14</span>
 							<span>Kate</span>
@@ -91,15 +98,14 @@
 						<p class="regienanweisungen">
 							<span>Pause</span>
 						</p>
-						<p>
+						<p class="regieanweisung">
 							Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 						</p>
-						<p>
-							<!-- Wir haben dem Text ein wenig Blindtext angefügt, um diesen in der CSS-Aufgabe zu bearbeiten -->
+						<p class="regieanweisung">
 							Heiner M&uuml;llers St&uuml;ckspannt einen historischen Bogen von der Bodenreform 1945 bis zur Kollektivierung und Bildung der Landwirtschaftlichen.
 							Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-						</p>
-						
+						</p>-->
+
 					</article>
 					<footer>
 						<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->

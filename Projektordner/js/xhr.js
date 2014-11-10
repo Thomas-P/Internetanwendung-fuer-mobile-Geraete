@@ -28,6 +28,9 @@ var xhr = function(url,options) {
 	xmlhttp.open(method, url, true);
 	// onLoad -> request successful
 	xmlhttp.onload = function() {
+		if (xmlhttp.status>=400) {
+			return deferred.reject(Error('Ressource not found.'));
+		}
 		var contentType = xmlhttp.getResponseHeader("Content-type").toLowerCase();
 		if (contentType.indexOf('json')==-1) 
 			return deferred.resolve(xmlhttp.responseText);

@@ -3,13 +3,13 @@
 *	appends this to 
 *	@dependencies
 *		xhr
-*		...
+*		viewController
 */
 var createConfigChange = function() {
 	// placeholder <span id="configChanger" data-config-url="data/config.json"/>
 	var configChangeElement = document.getElementById('configChanger');
 	if (!configChangeElement || !configChangeElement.dataset || !configChangeElement.dataset.configUrl) {
-		console.log('Could not find the config placeholder with id #configChanger and a field named data-config-url');
+		console.error('Could not find the config placeholder with id #configChanger and a field named data-config-url');
 		return;
 	}
 
@@ -19,9 +19,8 @@ var createConfigChange = function() {
 	var changeConfigEvent = function(event) {
 		event.preventDefault();
 		var file = event.srcElement.value;
-		// TODO load after content change
-		console.log('change',file);
-
+		// generate a new view
+		viewController(file);
 	};
 
 	// function for converting data
@@ -42,26 +41,26 @@ var createConfigChange = function() {
 		}
 		// finished selectBox added to the placeholder
 		configChangeElement.appendChild(selectBox);
+		// load first config by firering event
 		if ("createEvent" in document) {
 			var evt = document.createEvent("HTMLEvents");
 			evt.initEvent("change", false, true);
 			selectBox.dispatchEvent(evt);
 		}
-		else
+		else {
 			selectBox.fireEvent("onchange");
-			// TODO load first config
-		};
+		}
 
-		var isError = function(text) {
-			alert(text);
-		};
-
-
-
-		xhr(configUrl)
-		.then(createConfigBox)
-		.then()
-		.catch(isError);
 	};
+
+	var isError = function(text) {
+		alert(text);
+	};
+
+	// loading config
+	xhr(configUrl)
+	.then(createConfigBox)
+	.catch(isError);
+};
 // add to load Event
 window.addEventListener('load',createConfigChange);

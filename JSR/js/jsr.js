@@ -28,7 +28,7 @@ function initialiseView() {
 	config_switch.onclick = function() {
 		switchJsonConfig();
 		loadContentAndCreateLayout();
-	}
+	};
 	
 	loadContentAndCreateLayout();
 }

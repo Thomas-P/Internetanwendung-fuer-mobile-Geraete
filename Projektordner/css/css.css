@@ -187,22 +187,22 @@ pt statt px?
 	max-height: 280px;
 }
 #objekt header {
-	height: 40px;
-	margin: 0 5px 0 0;
-	background-image: url(img/Kringel01.png);
-	background-repeat: no-repeat;
-	background-position: right top;
-	background-size: contain;
-}
-#objekt h2 {
+	height: 30px;
+	padding: 0 5px 0 0;
 	margin: 0;
-	padding: 0 0 10px 0;
-	box-sizing: content-box;
-	width: calc( 100% + 5px );
 	color: rgb(128,128,128);
 	border-bottom-style: dashed;
 	border-bottom-width: 1px;
 	border-color: rgb(128,128,128);
+	display: block;
+	vertical-align: top;
+}
+#objekt h2 {
+	margin: 0;
+	box-sizing: content-box;
+	color: rgb(128,128,128);
+	font-size: 20px;
+	display: inline-block;
 }
 #objekt img {
 	box-sizing: content-box;
@@ -211,7 +211,7 @@ pt statt px?
 	max-height: 190px;
 }
 #objekt figure {
-	margin: 0;
+	margin: 45px 0 0 0;
 	padding: 0;
 	display: block;
 }
@@ -223,6 +223,16 @@ pt statt px?
 	display: inline-block;
 	vertical-align: top;
 	white-space:normal ;
+}
+#objektKringel {
+	float: right;
+	height: 40px;
+	width: 40px;
+	display: inline-block;
+	background-image: url(img/Kringel01.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: contain;
 }
 /** Wrapper für Medienweise **/
 .wrapper {
