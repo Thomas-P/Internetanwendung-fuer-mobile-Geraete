@@ -165,7 +165,8 @@ var viewController = function() {
 				case 'object': 
 
 				break;
-				// create medienweise
+				// create medienverweise
+
 				case 'medienverweise':
 				createMedienVerweise(element);
 				break;
@@ -219,7 +220,7 @@ var viewController = function() {
 
 
 	/**
-	*	create a new wrapper element for medienweise objects
+	*	create a new wrapper element for medienverweise objects
 	*/
 	var createWrapper = function() {
 		var wrapperElement = document.createElement('div');
@@ -247,7 +248,7 @@ var viewController = function() {
 
 		tmpRC = tmpRC[renderContainer];
 
-		if (element.classList.contains('medienweise')) {
+		if (element.classList.contains('medienverweise')) {
 			var actualWrapper = tmpRC.actualWrapper;
 			if (!actualWrapper || actualWrapper.children.length>1) {
 				// generate a new wrapper
@@ -284,7 +285,7 @@ var viewController = function() {
 
 		View.templates = {
 			textauszug : document.querySelector('#textauszug') || document.createElement('div'),
-			medienverweise: document.querySelector('.medienweise') || document.createElement('div'),
+			medienverweise: document.querySelector('.medienverweise') || document.createElement('div'),
 			zeitdokumente: document.querySelector('#objekt') || document.createElement('div'),
 			footer: document.querySelector('footer.wrapper') || document.createElement('div')
 		};

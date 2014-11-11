@@ -1,0 +1,82 @@
+/* Uberschrift
+Vorgaben:
+Font: Avenir Medium 40 pt
+Farbe: 63,169,245;
+http://joelcrawfordsmith.com/new/font/avenir
+https://www.google.com/fonts/specimen/Nunito
+Testweise Nunito als Schriftart
+wirklich 40pt? 40px sieht passender aus
+Keine Linienhohen angegeben, deshalb 40px, gema? Abbildung
+*/
+
+.medienverweise {
+	box-sizing: content-box;
+	background: rgb(45,45,45);
+	margin: 0;
+	padding: 10px;
+	width: 180px;
+	display: block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.medienverweise > header > a {
+	margin: 0;
+	padding: 0;
+	display: block;
+	text-decoration: none;
+	background-image: url('img/Pfeil02.png');
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: contain;
+}
+/** Trennlinie wird durch header markiert
+Vorgabe:
+Strichlange 360px; // durch medienverweise
+box realisiert
+Starke 1px dashed 5px //use http://thephuse.com/development/customizing-your-dashed-and-dotted-borders-in-css3/
+Farbe: rgb(242,242,242);
+**/
+.medienverweise header {
+	margin: 0;
+	padding: 0 0 10px 0;
+	display: block;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-color: rgb(242,242,242);
+}
+/**
+Umsetzung der Liste
+Zurucksetzen von margin, padding und list-style
+**/
+.medienverweise ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+/**
+Aufzahlung
+nach Vorgabe oben und unten 20px padding
+Linie:dashed unterhalb des Elements
+Rest wie aufgefuhrt
+Linienhohe nicht angegeben?
+pt statt px?
+*/
+.medienverweise li {
+	font-size: 15px;
+	line-height: 20px;
+	font-family: 'Avenir Roman','Nunito', sans-serif;
+	color: rgb(242,242,242);
+	padding: 10px 0;
+	display: block;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-color: rgb(242,242,242);
+}
+.medienverweise a {
+	text-decoration: none;
+	color: rgb(242,242,242);
+}
+/* Unter der letzten Aufzahlung kein Border: dashed; */
+.medienverweise li:last-child {
+	border: none;
+}

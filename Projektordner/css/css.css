@@ -1,17 +1,4 @@
-/* apply a natural box layout model to all elements, but allowing components to change */
-html {
-	box-sizing: border-box;
-}
-*, *:before, *:after {
-	box-sizing: inherit;
-}
 
-/** Hintergrund und Font setzen **/
-body {
-	background-color: rgb(90,90,90);
-	font-family: "Avenir Medium", sans-serif;
-	overflow: hidden;
-}
 /**
 Verknüpfung meint das <aside>, welchem wir die 
 ID verknuepfungen gegeben haben.
@@ -51,6 +38,7 @@ Borderbox-Modell gewählt **/
 	font-weight: bold;
 	text-transform: uppercase;
 	font-size: 20px;
+	color: rgb(242,242,242);
 }
 /* Uberschrift
 Vorgaben:
@@ -234,26 +222,12 @@ pt statt px?
 	background-position: right top;
 	background-size: contain;
 }
-/** Wrapper für Medienweise **/
-.wrapper {
-	width: 200px;
-	display: inline-block;
-}
 
 .regieanweisungen{ 
 	font-style: italic;
 }
 .akteur {
 	text-transform: uppercase;
-}
-
-body > footer {
-	clear: both;
-}
-
-body {
-	background-color: rgb(90,90,90);
-	font-family: "Avenir Medium", sans-serif;
 }
 
 #mainScrollArea {
@@ -284,43 +258,6 @@ main > article > header > h1 {
 }
 
 
-/** BEGINN DER ÜBUNG JSL **/
-body {
-	margin: 0;
-	padding: 0;
-}
-
-body > header {
-	display: block;
-	height: 30px;
-	background-color: rgb(60,60,60);
-	background: linear-gradient(to top, black, rgb(64,64,64));
-}
-
-body > header > a, body > footer a {
-	font-family: "Avenir Black", sans-serif;
-	color: rgb(128,128,128);
-	font-size: 14px;
-	vertical-align: middle;
-	text-decoration: none;
-	height: 30px;
-	width: 100%;
-	padding: 5px 0 0 10px;
-	display: block;
-}
-
-body > footer {
-	display: block;
-	height: 60px;
-	width: 100%;
-	background-color: rgb(60,60,60);
-	background: linear-gradient(to bottom, black, rgb(64,64,64));
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	z-index: 2;	
-	display: block;
-}
 
 #menu ul {
 	list-style: none;
@@ -344,32 +281,6 @@ body.detail #objekt, body.detail .wrapper {
 
 #einfuehrungstext {
 	display: none;
-}
-/** Hauptüberschrift im Artikel **/
-body.detail h1 {
-	box-sizing: content-box;
-	font-family: "Avenir Black", sans-serif;
-	font-size: 20pt;
-	font-weight: normal;
-	font-style: normal;
-	color: rgb(63,169,245);
-
-	margin: 0 10px 15px 10px;
-	padding: 10px 0 15px 0;
-
-	border: none;
-	border-bottom-style: dashed;
-	border-bottom-width: 1px;
-	border-color: rgb(63,169,245);
-
-}
-
-body.detail > header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 1;
 }
 
 body.detail main {
