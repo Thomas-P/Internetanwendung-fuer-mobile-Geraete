@@ -417,3 +417,6 @@ main.fade-out {
 	transition: opacity 2s
 }
 
+.render-container {
+	display: inline-block;
+}

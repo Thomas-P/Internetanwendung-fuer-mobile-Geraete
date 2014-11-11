@@ -71,6 +71,7 @@ var viewController = function() {
 	*	JSR2 - 4 Zeitdokumente
 	*/
 	var createZeitdokumente = function(object) {
+		object.type = 'zeitdokumente';
 		var element = getElements(object.type);
 		if (!element) {
 			console.error('Could\'nt find "Zeitdokumente" element.');
@@ -153,6 +154,7 @@ var viewController = function() {
 				return;
 			switch (element.type) {
 				case 'zeitdokumente':
+				case 'objekt':
 				createZeitdokumente(element);
 				break;
 				// create a textauszug
