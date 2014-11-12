@@ -21,6 +21,9 @@
 	padding: 0;
 	color: rgb(77,77,77);
 }
+#textauszug .szene p {
+	margin-top: 0;
+}
 #textauszug span {
 	display: block;
 }

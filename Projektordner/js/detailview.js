@@ -92,7 +92,7 @@
  	**/
  	var transistionListener = function(event) {
  		// did not contail .fade-out
- 		if (!mainElement.classList.contains('fade-out')) {
+ 		if (mainElement.classList.contains('fade-out') === false) {
  			// fade from fade-out to normal
  			isFading = false;
  			return;
@@ -102,14 +102,14 @@
  		// detail view.
  		if (bodyElement.classList.contains('detail')) {
  			// remove detail class
- 			bodyElement.classList.remove('detail');
  			detailElement.classList.remove('detail-active');
+ 			bodyElement.classList.remove('detail');
  			// set detailElement to null
  			detailElement = null;
  			detailed = false;
  		} else {
- 			bodyElement.classList.add('detail');
  			detailElement.classList.add('detail-active');
+ 			bodyElement.classList.add('detail');
  			detailed = true;
  		}
  		// remove fade-out so we fade from fade-out to normal

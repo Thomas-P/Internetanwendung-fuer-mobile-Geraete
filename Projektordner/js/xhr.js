@@ -8,7 +8,17 @@
 */
 var xhr = function(url,options) {
 	// create Promise.defer object
-	var deferred = Promise.defer();
+	var deferred;
+	if (Promise.defer) {
+		deferred = Promise.defer();
+	}
+	else {
+		deferred = {};
+		deferred.promise = new Promise(function(resolve,reject) {
+			deferred.resolve = resolve;
+			deferred.reject = reject;
+		});
+	}
 	if (!url)
 		deferred.reject(Error('No url given'));
 	url = String(url);

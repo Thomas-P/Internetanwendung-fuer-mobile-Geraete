@@ -17,8 +17,9 @@ var createConfigChange = function() {
 
 	// event listener for configBox
 	var changeConfigEvent = function(event) {
+		console.log(event);
 		event.preventDefault();
-		var file = event.srcElement.value;
+		var file = event.target.value;
 		// generate a new view
 		viewController(file);
 	};

@@ -5,6 +5,9 @@ main > article > header, body > header {
 	user-select: none;
 }
 
+main > article, main > article > * {
+	vertical-align: top;
+}
 main > article > header > h1 {
 	font-size: 30pt;
 	font-weight: normal;
@@ -17,11 +20,11 @@ main > article > header > h1 {
 /** for scrolling **/
 #mainScrollArea {
 	white-space: nowrap;
-	overflow-x: auto;
+	overflow-x: scroll;
 	overflow-y: hidden;
 	font-size: 0px;
 	display: block;
-	height: 305px;
+	height: 300px;
 }
 
 

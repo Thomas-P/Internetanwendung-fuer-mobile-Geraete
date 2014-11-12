@@ -71,12 +71,15 @@ body > header > a, body > footer a {
 body > footer {
 	clear: both;
 	display: block;
-	height: 60px;
+	height: 50px;
 	width: 100%;
 	background-color: rgb(60,60,60);
 	background: linear-gradient(to bottom, black, rgb(64,64,64));
 	display: block;
 	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 
 h2 {
@@ -98,4 +101,8 @@ h2 {
 
 .render-container {
 	display: inline-block;
+}
+
+body > main {
+	height: 400px;
 }

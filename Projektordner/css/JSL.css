@@ -8,12 +8,13 @@ body.detail #objekt, body.detail .wrapper,b {
 	display: none;
 }
 
-body.detail main * {
+body.detail main, body.detail main * {
 	background: white;
 }
 body.detail #mainScrollArea {
 	overflow-x: hidden;
-	overflow-y: auto;
+	overflow-y: scroll;
+	margin-top: -10px;
 }
 
 #textauszug.detail-active {
@@ -28,6 +29,8 @@ body.detail #mainScrollArea {
 }
 #textauszug.detail-active .szene {
 	height: auto;
+	margin-top: 0;
+	padding-top: 0;
 }
 #textauszug.detail-active footer {
 	display: none;
