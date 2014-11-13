@@ -1,0 +1,108 @@
+/*
+*	@author ganna demydova, thomas puttkamer
+*	enthält body without header and footer
+*/
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+	box-sizing: border-box;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+/** Hintergrund und Font setzen **/
+body {
+	background-color: rgb(90,90,90);
+	font-family: "Avenir Medium", sans-serif;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+/** Wrapper für Medienweise **/
+.wrapper {
+	vertical-align: top;
+	display: inline-block;
+	width: 210px;
+}
+.wrapper > section {
+	white-space:normal ;
+}
+
+/** Hauptüberschrift im Artikel **/
+body.detail h1 {
+	box-sizing: content-box;
+	font-family: "Avenir Black", sans-serif;
+	font-size: 20pt;
+	font-weight: normal;
+	font-style: normal;
+	color: rgb(63,169,245);
+
+	margin: 0 10px 15px 10px;
+	padding: 10px 0 15px 0;
+
+	border: none;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-color: rgb(63,169,245);
+
+}
+
+body > header {
+	display: block;
+	height: 30px;
+	background-color: rgb(60,60,60);
+	background: linear-gradient(to top, black, rgb(64,64,64));
+	overflow: hidden;
+}
+
+body > header > a, body > footer a {
+	font-family: "Avenir Black", sans-serif;
+	color: rgb(128,128,128);
+	font-size: 14px;
+	text-decoration: none;
+	height: 30px;
+	width: 100%;
+	padding: 5px 0 0 10px;
+	display: block;
+}
+
+body > footer {
+	clear: both;
+	display: block;
+	height: 50px;
+	width: 100%;
+	background-color: rgb(60,60,60);
+	background: linear-gradient(to bottom, black, rgb(64,64,64));
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+h2 {
+	margin: 0;
+	padding: 0;
+	font-family: 'Avenir Medium','Nunito', sans-serif;
+	font-size: 20px;
+	line-height: 20px;
+	color: rgb(63,169,245);
+	display: block;
+}
+
+#objekt, #textauszug {
+	margin-right: 10px;
+	display: inline-block;
+	vertical-align: top;
+	white-space:normal ;
+}
+
+.render-container {
+	display: inline-block;
+}
+
+body > main {
+	height: 400px;
+}

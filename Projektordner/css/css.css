@@ -1,0 +1,333 @@
+
+/**
+Verknüpfung meint das <aside>, welchem wir die 
+ID verknuepfungen gegeben haben.
+
+Wir haben noch gar nicht das für uns sinnvolle 
+Borderbox-Modell gewählt **/
+#verknuepfungen {
+	color: rgb(179,179,179);
+	border: 1px dashed rgb(179,179,179);
+	margin: 10px;
+	width: 200px;
+	padding: 10px;
+}
+
+#verknuepfungen h2 {
+	text-transform: uppercase;
+	font-size: 15px;
+	font-weight: normal;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+#verknuepfungen li {
+	border-top: 1px dashed rgb(179,179,179);
+	padding: 10px;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+#verknuepfungen li:last-child {
+	padding-bottom: 0;
+}
+
+#verknuepfungen a {
+	text-decoration: none;
+	color: inherit;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 20px;
+	color: rgb(242,242,242);
+}
+/* Uberschrift
+Vorgaben:
+Font: Avenir Medium 40 pt
+Farbe: 63,169,245;
+http://joelcrawfordsmith.com/new/font/avenir
+https://www.google.com/fonts/specimen/Nunito
+Testweise Nunito als Schriftart
+wirklich 40pt? 40px sieht passender aus
+Keine Linienhohen angegeben, deshalb 40px, gema? Abbildung
+*/
+.medienweise h2, #textauszug h2, #objekt h2 {
+	margin: 0;
+	padding: 0;
+	font-family: 'Avenir Medium','Nunito', sans-serif;
+	font-size: 20px;
+	line-height: 20px;
+	color: rgb(63,169,245);
+	display: block;
+}
+
+.medienweise {
+	box-sizing: content-box;
+	background: rgb(45,45,45);
+	margin: 0;
+	padding: 10px;
+	width: 180px;
+	display: block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.medienweise > header > a {
+	margin: 0;
+	padding: 0;
+	display: block;
+	text-decoration: none;
+	background-image: url('img/Pfeil02.png');
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: contain;
+}
+/** Trennlinie wird durch header markiert
+Vorgabe:
+Strichlange 360px; // durch medienweisebox realisiert
+Starke 1px dashed 5px //use http://thephuse.com/development/customizing-your-dashed-and-dotted-borders-in-css3/
+Farbe: rgb(242,242,242);
+**/
+.medienweise header {
+	margin: 0;
+	padding: 0 0 10px 0;
+	display: block;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-color: rgb(242,242,242);
+}
+/**
+Umsetzung der Liste
+Zurucksetzen von margin, padding und list-style
+**/
+.medienweise ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+/**
+Aufzahlung
+nach Vorgabe oben und unten 20px padding
+Linie:dashed unterhalb des Elements
+Rest wie aufgefuhrt
+Linienhohe nicht angegeben?
+pt statt px?
+*/
+.medienweise li {
+	font-size: 15px;
+	line-height: 20px;
+	font-family: 'Avenir Roman','Nunito', sans-serif;
+	color: rgb(242,242,242);
+	padding: 10px 0;
+	display: block;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-color: rgb(242,242,242);
+}
+/* Unter der letzten Aufzahlung kein Border: dashed; */
+.medienweise li:last-child {
+	border: none;
+}
+/** Beginn Textauszug **/
+#textauszug {
+	box-sizing: content-box;
+	background-image: url('img/BackgroundMerkliste.png');
+	background-repeat: repeat;
+	width: 180px;
+	padding: 10px;
+	margin: 0;
+}
+#textauszug header {
+	margin: 0;
+	padding: 0 0 10px 0;
+}
+#textauszug .szene {
+	height: 195px;
+	display: block;
+	overflow: hidden;
+	font-family: 'Marion Regular', sans-serif;
+	font-size: 15px;
+	margin: 10px 0 20px 0;
+	padding: 0;
+	color: rgb(77,77,77);
+}
+#textauszug span {
+	display: block;
+}
+#textauszug footer a {
+	background-image: url('img/Pfeil02.png');
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-size: contain;
+	display: block;
+	font-family: 'Marion Regular', sans-serif;
+	font-size: 15px;
+	line-height: 15px;
+	margin: 0;
+	padding: 0 0 0 25px;
+	text-decoration: none;
+	color: rgb(63,169,245);
+}
+/** Beginn Objekt ***/
+#objekt {
+	margin: 0;
+	padding: 10px;
+	background: rgb(45,45,45);
+	max-width: 280px;
+	max-height: 280px;
+}
+#objekt header {
+	height: 30px;
+	padding: 0 5px 0 0;
+	margin: 0;
+	color: rgb(128,128,128);
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-color: rgb(128,128,128);
+	display: block;
+	vertical-align: top;
+}
+#objekt h2 {
+	margin: 0;
+	box-sizing: content-box;
+	color: rgb(128,128,128);
+	font-size: 20px;
+	display: inline-block;
+}
+#objekt img {
+	box-sizing: content-box;
+	margin: 15px 5px 15px 0;
+	max-width: 255px;
+	max-height: 190px;
+}
+#objekt figure {
+	margin: 45px 0 0 0;
+	padding: 0;
+	display: block;
+}
+#objekt figcaption {
+	display: none;
+}
+#objekt, #textauszug, .wrapper {
+	margin-right: 10px;
+	display: inline-block;
+	vertical-align: top;
+	white-space:normal ;
+}
+#objektKringel {
+	float: right;
+	height: 40px;
+	width: 40px;
+	display: inline-block;
+	background-image: url(img/Kringel01.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: contain;
+}
+
+.regieanweisungen{ 
+	font-style: italic;
+}
+.akteur {
+	text-transform: uppercase;
+}
+
+#mainScrollArea {
+	white-space: nowrap;
+	overflow-x: scroll;
+	font-size: 0px;
+	display: block;
+}
+
+/* Haupttitel */
+main > article > header {
+	/* avoid that elements can be selected */
+	-moz-user-select: none;
+	user-select: none;
+}
+
+main > article > header > h1 {
+	font-size: 30pt;
+	font-weight: normal;
+	font-style: normal;
+	color: rgb(204,204,204);
+	margin: 0;
+	padding: 10px;
+}
+
+#mainScrollArea > section:nth-child(1) {
+	margin-left: 10px;
+}
+
+
+
+#menu ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+#menu ul>li {
+	margin: 0;
+	padding: 2px 0 0 0;
+	display: inline-block;
+	float: left;
+	width: 20%;
+}
+
+/** Detailansicht Textauszug **/
+/** It could be possible that we had to rename detail in detailTextauszug **/
+body.detail #objekt, body.detail .wrapper {
+	display: none;
+}
+
+#einfuehrungstext {
+	display: none;
+}
+
+body.detail main {
+	margin-top: 30px;
+	display: block;
+}
+
+body.detail main * {
+	background: white;
+}
+body.detail #mainScrollArea {
+	overflow: hidden;
+	overflow-y: auto;
+}
+
+body.detail #textauszug {
+	box-sizing: content-box;
+	width: auto;
+	height: auto;
+	padding: 0;
+	margin: 0 10px;
+
+	background: none;
+	display: block;
+}
+body.detail #textauszug .szene {
+	height: auto;
+}
+body.detail #textauszug footer {
+	display: none;
+}
+
+body.detail #textauszug > header {
+	display: none;
+}
+
+
+main {
+	opacity: 1.0;
+	transition: opacity 2s
+}
+
+main.fade-out {
+	opacity: 0;
+	transition: opacity 2s
+}
+
+.render-container {
+	display: inline-block;
+}

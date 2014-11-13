@@ -1,0 +1,50 @@
+/** Beginn Textauszug **/
+#textauszug {
+	box-sizing: content-box;
+	background-image: url('img/BackgroundMerkliste.png');
+	background-repeat: repeat;
+	width: 180px;
+	padding: 10px;
+	margin: 0;
+}
+#textauszug header {
+	margin: 0;
+	padding: 0 0 10px 0;
+}
+#textauszug .szene {
+	height: 195px;
+	display: block;
+	overflow: hidden;
+	font-family: 'Marion Regular', sans-serif;
+	font-size: 15px;
+	margin: 10px 0 20px 0;
+	padding: 0;
+	color: rgb(77,77,77);
+}
+#textauszug .szene p {
+	margin-top: 0;
+}
+#textauszug span {
+	display: block;
+}
+#textauszug footer a {
+	background-image: url('img/Pfeil02.png');
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-size: contain;
+	display: block;
+	font-family: 'Marion Regular', sans-serif;
+	font-size: 15px;
+	line-height: 15px;
+	margin: 0;
+	padding: 0 0 0 25px;
+	text-decoration: none;
+	color: rgb(63,169,245);
+}
+
+.regieanweisungen{ 
+	font-style: italic;
+}
+.akteur {
+	text-transform: uppercase;
+}
