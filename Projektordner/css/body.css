@@ -99,10 +99,11 @@ h2 {
 	white-space:normal ;
 }
 
-.render-container {
-	display: inline-block;
-}
-
 body > main {
 	height: 400px;
+}
+
+.render-container {
+	display: inline;
+	
 }
