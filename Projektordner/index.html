@@ -5,17 +5,36 @@
 	<meta charset="utf-8">
 	<meta name="description" content="">
 	<meta name="author" content="Demydova Ganna, Thomas Puttkamer">
-	<meta name="viewport" content="width=320; initial-scale=1.0">
+	<meta name="viewport" content="width=320, initial-scale=1.0">
 
 	<link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
+	<!-- Config Box -->
+	<link rel="stylesheet" type="text/css" href="css/debug.css">
 
-	<link rel="stylesheet" type="text/css" href="css/css.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<link rel="stylesheet" type="text/css" href="css/verknuepfung.css">
+	<link rel="stylesheet" type="text/css" href="css/textauszug.css">
+	<link rel="stylesheet" type="text/css" href="css/medienverweise.css">
+	<link rel="stylesheet" type="text/css" href="css/objekt.css">
+
+	<link rel="stylesheet" type="text/css" href="css/body.css">
+	<link rel="stylesheet" type="text/css" href="css/JSL.css">
+
+	<script type="text/javascript" src="./js/promises-polyfill.js"></script>
+	<script type="text/javascript" src="./js/xhr.js"></script>
+	<script type="text/javascript" src="./js/detailview.js"></script>
+	<script type="text/javascript" src="./js/viewController.js"></script>
+	<script type="text/javascript" src="./js/configChanger.js"></script>
 </head>
 <!-- <body>-->
-<body class="detail">
+<body>
 	<header>
 		<!-- Kopf des Dokuments enthält nur den Link zurück -->
-		<a href="/">&lt;&lt; Zurück</a>
+		<a href="/" id="zurueck" class="detail-back">&lt;&lt; Zurück</a>
+		<span id="configChanger" data-config-url="data/config.json">
+			<!-- placeholder for configChanger -->
+		</span>
 	</header>
 	<main>
 		<article>
@@ -24,7 +43,8 @@
 				<!-- Artikelüberschrift -->
 				<h1>Die Umsiedlerin</h1>
 			</header>
-			<div id="mainScrollArea">
+			<!-- generate main View for view Controller with render container -->
+			<div id="mainScrollArea" class="main-view" data-container="left,middle,right" >
 				<!-- Unterabschnitte stellen wir semantisch durch eigene Sections dar -->
 				<!-- Abschnitt mit dem Objekt gemäß Aufgabenstellung aus CSS -->
 				<section id="objekt">
@@ -32,7 +52,8 @@
 					<header>
 						<!-- Überschrift von Abschnitten werden in Header eingebunden, -->
 						<!-- um sie vom Hauptteil des Unterabschnitts semantisch abzugrenzen -->
-						<h2>Objekt</h2>
+						<h2>Zeitdokumente</h2>
+						<span id="objektKringel"></span>
 					</header>
 					<figure>
 						<img src="img/hm_mit_bk_tragelehn.jpg" alt="Abbildung zwei Männer" />
@@ -41,7 +62,7 @@
 						</figcaption>
 					</figure>
 				</section>
-				<section id="einfuehrungstext">
+				<section id="einfuehrungstext" class="detail-view">
 					<!-- Unterabschnitt Einführungstext -->
 					<header>
 						<h2>"Die Umsiedlerin oder das Leben auf dem Lande"</h2>	
@@ -53,13 +74,12 @@
 					</p>
 					<footer>
 						<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
-						<!-- TODO: Klären ob der Pfeil auch zur Navigation dient -->
-						<a href="/"><img src="bilder/pfeife.png" alt="Arrow" /> weiter lesen</a>
+						<a href="/" class="detail-switch">weiter lesen</a>
 					</footer>
 				</section>
 
 				<!-- Alle für die Aufgabe nicht benötigten Teile wurden entfernt -->
-				<section id="textauszug">
+				<section id="textauszug" class="detail-view">
 					<!-- Unterabschnitt Textauszug -->
 					<header>
 						<h2>Textauszug</h2>	
@@ -69,6 +89,7 @@
 					<!-- Der Text stellt einen in sich geschlossenen article dar, weshalb das semantische Element statt des -->
 					<!-- Divs genutzt wird. -->
 					<article class="szene">
+						<!-- moved to file
 						<p class="regieanweisungen">
 							<span>14</span>
 							<span>Kate</span>
@@ -85,25 +106,23 @@
 						<p class="regienanweisungen">
 							<span>Pause</span>
 						</p>
-						<p>
+						<p class="regieanweisung">
 							Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 						</p>
-						<p>
-							<!-- Wir haben dem Text ein wenig Blindtext angefügt, um diesen in der CSS-Aufgabe zu bearbeiten -->
+						<p class="regieanweisung">
 							Heiner M&uuml;llers St&uuml;ckspannt einen historischen Bogen von der Bodenreform 1945 bis zur Kollektivierung und Bildung der Landwirtschaftlichen.
 							Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-						</p>
-						
+						</p>-->
+
 					</article>
 					<footer>
 						<!-- Nutzen das Footer Element um weitere Aktionen für den Unterabschnitt zu ermöglichen. -->
-						<!-- TODO: Klären ob der Pfeil auch zur Navigation dient | nur Style deshalb entfernt -->
-						<a href="/">weiter lesen</a>
+						<a href="/" class="detail-switch">weiter lesen</a>
 					</footer>
 				</section>
 				<!-- Div, um den Umbruch des Inhalts zu ermöglichen -->
 				<div class="wrapper">
-					<section class="medienweise">
+					<section class="medienverweise">
 						<!-- Kommentar -->
 						<header>
 							<a href="/"><h2>Kommentar</h2></a>	
@@ -114,7 +133,7 @@
 							</li>
 						</ul>
 					</section>
-					<section class="medienweise">
+					<section class="medienverweise">
 						<!-- Filme und Audio -->
 						<header>
 							<a href="/"> <h2>Filme und Audio</h2></a>	

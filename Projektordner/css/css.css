@@ -1,17 +1,4 @@
-/* apply a natural box layout model to all elements, but allowing components to change */
-html {
-	box-sizing: border-box;
-}
-*, *:before, *:after {
-	box-sizing: inherit;
-}
 
-/** Hintergrund und Font setzen **/
-body {
-	background-color: rgb(90,90,90);
-	font-family: "Avenir Medium", sans-serif;
-	overflow: hidden;
-}
 /**
 Verknüpfung meint das <aside>, welchem wir die 
 ID verknuepfungen gegeben haben.
@@ -51,6 +38,7 @@ Borderbox-Modell gewählt **/
 	font-weight: bold;
 	text-transform: uppercase;
 	font-size: 20px;
+	color: rgb(242,242,242);
 }
 /* Uberschrift
 Vorgaben:
@@ -187,22 +175,22 @@ pt statt px?
 	max-height: 280px;
 }
 #objekt header {
-	height: 40px;
-	margin: 0 5px 0 0;
-	background-image: url(img/Kringel01.png);
-	background-repeat: no-repeat;
-	background-position: right top;
-	background-size: contain;
-}
-#objekt h2 {
+	height: 30px;
+	padding: 0 5px 0 0;
 	margin: 0;
-	padding: 0 0 10px 0;
-	box-sizing: content-box;
-	width: calc( 100% + 5px );
 	color: rgb(128,128,128);
 	border-bottom-style: dashed;
 	border-bottom-width: 1px;
 	border-color: rgb(128,128,128);
+	display: block;
+	vertical-align: top;
+}
+#objekt h2 {
+	margin: 0;
+	box-sizing: content-box;
+	color: rgb(128,128,128);
+	font-size: 20px;
+	display: inline-block;
 }
 #objekt img {
 	box-sizing: content-box;
@@ -211,7 +199,7 @@ pt statt px?
 	max-height: 190px;
 }
 #objekt figure {
-	margin: 0;
+	margin: 45px 0 0 0;
 	padding: 0;
 	display: block;
 }
@@ -224,10 +212,15 @@ pt statt px?
 	vertical-align: top;
 	white-space:normal ;
 }
-/** Wrapper für Medienweise **/
-.wrapper {
-	width: 200px;
+#objektKringel {
+	float: right;
+	height: 40px;
+	width: 40px;
 	display: inline-block;
+	background-image: url(img/Kringel01.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: contain;
 }
 
 .regieanweisungen{ 
@@ -237,18 +230,11 @@ pt statt px?
 	text-transform: uppercase;
 }
 
-body > footer {
-	clear: both;
-}
-
-body {
-	background-color: rgb(90,90,90);
-	font-family: "Avenir Medium", sans-serif;
-}
-
 #mainScrollArea {
 	white-space: nowrap;
 	overflow-x: scroll;
+	font-size: 0px;
+	display: block;
 }
 
 /* Haupttitel */
@@ -272,62 +258,31 @@ main > article > header > h1 {
 }
 
 
-/** BEGINN DER ÜBUNG JSL **/
-body {
+
+#menu ul {
+	list-style: none;
 	margin: 0;
 	padding: 0;
-}
-
-body > header {
-	display: block;
-	height: 30px;
-	background-color: rgb(60,60,60);
-}
-
-body > header > a {
-	font-family: "Avenir Black", sans-serif;
-	color: rgb(128,128,128);
-	font-size: 27px;
-	vertical-align: middle;
-	text-decoration: none;
-	height: 30px;
 	width: 100%;
-	padding: 0 0 0 10px;
+}
+#menu ul>li {
+	margin: 0;
+	padding: 2px 0 0 0;
+	display: inline-block;
+	float: left;
+	width: 20%;
 }
 
 /** Detailansicht Textauszug **/
 /** It could be possible that we had to rename detail in detailTextauszug **/
-body.detail #objekt, body.detail .wrapper, body.detail > footer {
+body.detail #objekt, body.detail .wrapper {
 	display: none;
 }
 
 #einfuehrungstext {
 	display: none;
 }
-/** Hauptüberschrift im Artikel **/
-body.detail h1 {
-	box-sizing: content-box;
-	width: 300px;
 
-	font-family: "Avenir Black", sans-serif;
-	font-size: 20pt;
-	font-weight: normal;
-	font-style: normal;
-	color: rgb(63,169,245);
-
-	margin: 0 10px 15px 10px;
-	padding: 10px 0 15px 0;
-
-	border: none;
-	border-bottom-style: dashed;
-	border-bottom-width: 1px;
-	border-color: rgb(63,169,245);
-
-}
-
-body.detail {
-	z-index: 10;
-}
 body.detail main {
 	margin-top: 30px;
 	display: block;
@@ -338,20 +293,18 @@ body.detail main * {
 }
 body.detail #mainScrollArea {
 	overflow: hidden;
-	height: auto
+	overflow-y: auto;
 }
 
 body.detail #textauszug {
 	box-sizing: content-box;
-	width: 300px;
+	width: auto;
 	height: auto;
 	padding: 0;
 	margin: 0 10px;
 
 	background: none;
 	display: block;
-	overflow-x: hidden;
-	overflow-y: auto;
 }
 body.detail #textauszug .szene {
 	height: auto;
@@ -364,10 +317,17 @@ body.detail #textauszug > header {
 	display: none;
 }
 
-body.detail > header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 1;
+
+main {
+	opacity: 1.0;
+	transition: opacity 2s
+}
+
+main.fade-out {
+	opacity: 0;
+	transition: opacity 2s
+}
+
+.render-container {
+	display: inline-block;
 }

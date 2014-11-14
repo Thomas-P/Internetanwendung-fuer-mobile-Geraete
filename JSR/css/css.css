@@ -1,18 +1,3 @@
-Skip to content
- This repository
-Explore
-Gist
-Blog
-Help
-Thomas Puttkamer Thomas-P
- 
-2  Unwatch 
-  Star 0
- Fork 1Thomas-P/Internetanwendung-fuer-mobile-Geraete
- branch: master  Internetanwendung-fuer-mobile-Geraete / CSS / css / css.css
-ThomasP 9 days ago Zusammenführung der Arbeiten von Ganna und mir
-0 contributors
-198 lines (170 sloc)  3.722 kb RawBlameHistory   
 body {
 	background-color: rgb(90,90,90);
 	font-family: "Avenir Medium", sans-serif;
@@ -38,6 +23,7 @@ h1 {
  */
 section {
 	margin-top: 15px;
+	margin-left: 10px;
 }
 
 section:first-child {
@@ -210,3 +196,9 @@ section:first-child {
 	margin: 0px;
 }
 
+/* the config switch will be positioned in the upper right corner */
+#config_switch {
+	position: fixed;
+	right: 10px;
+	top: 10px;
+}
