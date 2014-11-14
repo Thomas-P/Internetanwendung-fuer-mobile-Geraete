@@ -83,6 +83,11 @@
  			}
  		}
  		ifFading = true;
+ 		/* test why firefox is bugged
+ 		var scrollArea = document.querySelector('#mainScrollArea');
+ 		if (scrollArea)
+ 			scrollArea.scrollTop = 0;
+ 		*/
  		mainElement.classList.add('fade-out');
  	};
  	/**

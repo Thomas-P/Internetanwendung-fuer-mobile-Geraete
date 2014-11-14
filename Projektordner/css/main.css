@@ -24,11 +24,11 @@ main > article > header > h1 {
 	overflow-y: hidden;
 	font-size: 0px;
 	display: block;
-	height: 300px;
+	height: 303px;
 }
 
 
-#mainScrollArea > section:nth-child(1) {
+#mainScrollArea > section:nth-child(1),#mainScrollArea > .render-container:nth-child(1) {
 	margin-left: 10px;
 }
 
