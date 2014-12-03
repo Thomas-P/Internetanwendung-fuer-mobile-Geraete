@@ -1,4 +1,0 @@
-
-var createTextauszug = function(textData) {
-	
-}
