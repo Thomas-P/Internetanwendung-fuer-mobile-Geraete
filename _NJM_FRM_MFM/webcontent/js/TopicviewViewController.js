@@ -72,38 +72,6 @@ var iam = (function(iammodule) {
 		 	figcaption.textContent = objData.title || '';
 		 }
 
-		 function readObject() {
-		 	if (!topicviewObj)
-		 		return console.error('No topicview object');
-
-		 	var len = topicviewObj.content_items.length;
-		 	var objId;
-		 	while (len--) {
-		 		var contenItemData = topicviewObj.content_items[len];
-
-		 		if (!contenItemData)
-		 			continue;
-		 		if (contenItemData.type == 'objekt') {
-		 			objId = contenItemData.objektid || null;
-		 			if (objId)
-		 				break;
-		 		}
-		 	}
-
-		 	/** NJM3 (1) **/
-		 	if (objId) {
-		 		crudops.readObject(objId,function(error,_objData) {
-		 			if (error) 
-		 				objData = null;
-		 			else
-		 				objData = _objData;
-
-		 			showObject();
-		 		});
-		 	}
-
-		 }
-
 		/*
 		 * this is tun
 		 */
@@ -133,7 +101,7 @@ var iam = (function(iammodule) {
 				if (event.type == "read") {
 					topicviewObj = event.data;
 					console.log('Reading objekt',topicviewObj);
-					readObject();
+					this.readObject();
 				}
 
 
@@ -161,21 +129,24 @@ var iam = (function(iammodule) {
 
 
 			 /** NJM3 (2) content_items anfügen **/
-			 eventDispatcher.addEventListener(iam.eventhandling.customEvent("crud", "created", "object"), function(event) {
-				// content Item pushen
-				var contentItem = {
-					type: 'objekt',
-					render_container: 'column_left',
-					objektid: event.data._id
-				};
+			 eventDispatcher.addEventListener(iam.eventhandling.customEvent("crud", "read|created", "object"), function(event) {
+			 	if (event.type == "created") {
+					// content Item pushen
+					var contentItem = {
+						type: 'objekt',
+						render_container: 'column_left',
+						objektid: event.data._id
+					};
 
-				topicviewObj.content_items.push(contentItem);
+					topicviewObj.content_items.push(contentItem);
 
-				console.log('Einfügen eines Objekts',topicviewObj);
-				objData = event.data;
+					console.log('Einfügen eines Objekts',topicviewObj);
+					objData = event.data;
 
-				this.addContentItem(contentItem);
+					this.addContentItem(contentItem);
+				} 
 
+				// show object for read and create
 				showObject();
 
 			}.bind(this));
@@ -289,6 +260,38 @@ var iam = (function(iammodule) {
 		/*
 		 * NJM: these functions need to be implemented for the njm exercises
 		 */
+		 this.readObject = function() {
+		 	if (!topicviewObj)
+		 		return console.error('No topicview object');
+
+		 	var len = topicviewObj.content_items.length;
+		 	var objId;
+		 	while (len--) {
+		 		var contenItemData = topicviewObj.content_items[len];
+
+		 		if (!contenItemData)
+		 			continue;
+		 		if (contenItemData.type == 'objekt') {
+		 			objId = contenItemData.objektid || null;
+		 			if (objId)
+		 				break;
+		 		}
+		 	}
+
+		 	/** NJM3 (1) **/
+		 	if (objId) {
+		 		crudops.readObject(objId,function(error,_objData) {
+		 			if (error) 
+		 				objData = null;
+		 			else
+		 				objData = _objData;
+		 			eventDispatcher.notifyListeners(iam.eventhandling.customEvent("crud", "read", "object", objData));
+		 		});
+		 	}
+
+		 }
+
+
 		 this.createObject = function() {
 			// TODO other object
 			if (objData) {

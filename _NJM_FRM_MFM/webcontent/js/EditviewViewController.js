@@ -67,6 +67,23 @@ var iam = (function(iammodule) {
 				}
 			}.bind(this));
 
+
+			/** FRM2 (7) Anzeigen des Objekttabs für Editview **/
+			eventDispatcher.addEventListener(iam.eventhandling.customEvent("crud", "read|created", "object"), function(event) {
+				console.log('Editview: FRM2 (7) Tab Anzeigen', event);
+				fillObjektData(event.data || {});
+				showTabForElementtype("objekt");
+				showTabForElementtype("objektList");
+			}.bind(this));
+
+			/** FRM2 (7) Anzeigen des Objekttabs für Editview **/
+			eventDispatcher.addEventListener(iam.eventhandling.customEvent("crud", "deleted", "object"), function(event) {
+				console.log('Editview: FRM2 (7) Tab ausblenden', event);
+				fillObjektData(event.data || {});
+				hideTabForElementtype("objekt");
+				// TODO: Check showTabForElementtype("objektList");
+			}.bind(this));
+
 			// initialise the controller for the title form
 			var titleformVC = iam.controller.titleform.newInstance(topicid, eventDispatcher, crudops);
 			titleformVC.initialiseTitleForm();
@@ -177,6 +194,21 @@ var iam = (function(iammodule) {
 		function keepEditview(event) {
 			console.log("keepEditview()");
 			event.stopPropagation();
+		}
+		/** FRM2 (8) **/
+		function fillObjektData(data) {
+			// TODO
+			var root = document.querySelector('form[name=form_objekt]');
+			if (!root) {
+				console.error('fillObjektData(): Could not find root');
+				return;
+			}
+			var titleElement = root.querySelector('input[name=src]');
+			if (titleElement)
+				titleElement.value = data.title || '';
+			var description = root.querySelector('textarea[name=description');
+			if (description)
+				description.innerText = data.description || '';
 		}
 
 	}

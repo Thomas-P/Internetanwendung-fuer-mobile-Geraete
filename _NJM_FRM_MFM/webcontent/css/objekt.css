@@ -50,3 +50,11 @@
 	background-position: right top;
 	background-size: contain;
 }
+/** Objekt Edit **/
+.object-img-thumbnail {
+	width: 200px;
+
+}
+.object-description {
+	height: 100px;
+}

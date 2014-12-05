@@ -157,9 +157,20 @@
 		</section>
 		<section id="tab_objekt">
 			<h2><a href="#tab_objekt">Objekt</a></h2>
+			<div class="scrollview">
 			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				<form name="form_objekt" action="/http2mdb/objects/" method="post" onsubmit="return confirm('submit?')">
+				<input name="src" placeholder="Titel" required="required" autofocus="autofocus" autocomplete="off"/>
+				<!--<img src="./content/img/hm_als_fondrak_1961.jpg" class="object-img-thumbnail" />-->
+				<input type="file" name="src" class="object-img" placeholder="Bild">
+				<textarea name="description" class="object-description" placeholder="Beschreibung"></textarea>
+					<input type="submit" value="Erzeugen" name="submit"/>
+				</form>
+				<button id="deleteTitleButton">
+					Löschen
+				</button>
 			</p>
+			</div>
 		</section>
 		<section id="tab_objektList">
 			<h2><a href="#tab_objektList">Alle Objekte</a></h2>
