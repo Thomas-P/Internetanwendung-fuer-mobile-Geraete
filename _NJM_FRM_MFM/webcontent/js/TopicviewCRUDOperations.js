@@ -1,3 +1,16 @@
+define('crud',function(debug, xhr) {
+
+	debug = debug.createConsole('crud');
+	debug.log('module loaded');
+	
+	xhr('test.html',function(err,test) {
+
+	});
+
+
+
+});
+
 var iam =
 
 /**

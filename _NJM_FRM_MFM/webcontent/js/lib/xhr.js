@@ -1,128 +1,86 @@
-/**
- * @author Jörn Kreutel
- */
+define('xhr',function(debug) {
 
-// add the functions in this script as a submodule to the iam module
-// see http://stackoverflow.com/questions/7508905/how-to-make-a-submodule-via-module-pattern
-var iam = ( function(parentmodule) {
-
-		console.log("loading xhr as submodule xhr of: " + parentmodule);
-
-		/*
-		 * generic method for calling a webapp passing / receiving json and callback methods
-		 *
-		 * method: the http method to be executed
-		 * requestpath: the path to be appended to the root path of the webapp
-		 * obj: an (optional object to be passed)
-		 * onsucccess: callback in case of success
-		 * onerror: callback in case of error
-		 */
-		function xhr(method, requestpath, obj, onsuccess, onerror) {
-			console.log("callWebapp()");
-
-			// create the request
-			var xmlhttp = new XMLHttpRequest();
-
-			var url = null;
-
-			if (requestpath) {
-
-				if (requestpath.indexOf("/") == 0) {
-					url = requestpath.substring(1);
-				} else {
-					url = requestpath;
-				}
-
-				/*
-				 * specify the callback function using our own callback function arguments - this code will be executed as soon as we have started sending the request
-				 */
-				xmlhttp.onreadystatechange = function() {
-
-					switch (xmlhttp.readyState) {
-						case 4:
-							console.log("onreadstatechange: request finished and response is ready. Status is: " + xmlhttp.status)
-							// in case we have a request code of 200 OK, we execute the onsuccess function passed as an argument
-							if (xmlhttp.status == 200) {
-								// show how to access a response header
-								console.log("response Content-Type header is: " + xmlhttp.getResponseHeader("Content-type"));
-								console.log("responseType is: " + xmlhttp.responseType);
-								console.log("response is: " + xmlhttp.response);
-
-								if (onsuccess) {
-									// the function will be passed the request object to be free with regard to reading out its content
-									onsuccess(xmlhttp);
-								} else {
-									alert("request " + url + " executed successfully, but no onsuccess callback is specified.")
-								}
-							} else {
-								if (onerror) {
-									onerror(xmlhttp);
-								} else {
-									alert("got error processing request " + url + ", but no onerror callback is specified. Status code is: " + xmlhttp.status);
-								}
-							}
-							break;
-						// we add log messages for the other status
-						case 3:
-							console.log("onreadstatechange: processing response...");
-							break;
-						case 2:
-							console.log("onreadstatechange: response received.");
-							break;
-						case 1:
-							console.log("onreadstatechange: connection established.");
-							break;
-						case 0:
-							console.log("onreadstatechange: request not initialised yet.");
-							break;
-					}
-				};
-
-				/*
-				 * open a connection to the server
-				 */
-				xmlhttp.open(method, url, true);
-
-				/*
-				* configure the request
-				*/
-
-				// a variable that will hold json data that will be sent with the request
-				var json;
-
-				// set the proper header information along with the request
-				if (obj) {
-					// create a json representation from the object
-					json = JSON.stringify(obj);
-					// set the header that indicates what type of content we are sending
-					xmlhttp.setRequestHeader("Content-type", "application/json");
-				}
-
-				// set the header indicating which content types we accept (quite coarse-grained, though)
-				xmlhttp.setRequestHeader("Accept", "application/json, application/xml, text/html, text/plain");
-
-				/*
-				* send the request
-				*/
-
-				// send the request and pass the json string as content or do not pass any content
-				console.log("sending request...");
-				if (obj) {
-					xmlhttp.send(json);
-				} else {
-					xmlhttp.send();
-				}
-			} else {
-				console.error("no requestpath specified! Ignore...");
+	debug = debug.createConsole('xhr');
+	debug.log('module loaded');
+	/**
+	*	xhr request with promise style
+	*	@param url 		is the requested uri
+	*	@param options	object that can contain
+	*		method	request method (default get)
+	*		data	data (method post, put)
+	*	@param callback old way, then not chainable
+	*	chain with .then(data) and .catch(data)
+	*/
+	var xhr = function(url,options,callback) {
+		debug.log('Request url: ',url,'with options/callback:',options,callback);
+		var deferred = {};
+		// implement an optional callback
+		if (typeof arguments[arguments.length-1] == "function" ) {
+			var callbackOptional = arguments[arguments.length-1];
+			deferred.reject = function(prop) {
+				callbackOptional(prop,null);
+			};
+			deferred.resolve = function(prop) {
+				callbackOptional(null,prop);
+			};
+			deferred.promise = null;
+		} else {
+			// promise Style
+			// create Promise.defer object
+			if (Promise.defer) {
+				deferred = Promise.defer();
+			}
+			else {
+				deferred = {};
+				deferred.promise = new Promise(function(resolve,reject) {
+					deferred.resolve = resolve;
+					deferred.reject = reject;
+				});
 			}
 		}
-
-		// export the function
-		parentmodule.xhr = {
-			xhr : xhr
+		if (!url)
+			return callbackOptional ? callbackOptional(Error('No url given'),null) : deferred.reject(Error('No url given'));
+		url = String(url);
+		if (url.indexOf("/") === 0) {
+			url = /*webapp_basepath + */
+			url.substring(1);
+		} 
+		// options as an object
+		options = options || {};
+		// exctract the method
+		var method = String(options.method || 'GET');
+		method.toUpperCase();
+		// extract data
+		var data = options.data || void 0;
+		// create a xhr object
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open(method, url, true);
+		// onLoad -> request successful
+		xmlhttp.onload = function() {
+			if (xmlhttp.status>=400) {
+				return deferred.reject(Error('Ressource not found.'));
+			}
+			var contentType = xmlhttp.getResponseHeader("Content-type").toLowerCase();
+			if (contentType.indexOf('json')==-1) 
+				return deferred.resolve(xmlhttp.responseText);
+			// return JSON
+			return deferred.resolve(JSON.parse(xmlhttp.responseText));
+		};
+		// onError -> xhr failded
+		xmlhttp.onerror = function(event) {
+			deferred.reject(event);
+		};
+		xmlhttp.setRequestHeader("Accept", "application/json, application/xml, text/html, text/plain");
+		if (data) {
+			xmlhttp.setRequestHeader("Content-type", "application/json");
+			xmlhttp.send(JSON.stringify(data));
+		} else {
+			xmlhttp.send();
 		}
-		
-		// return the parentmodule that now contains the submodule
-		return parentmodule;
+		// return the promise
+		return deferred.promise;
+	};
 
-	}(iam || {}))
+	return xhr;
+
+});
