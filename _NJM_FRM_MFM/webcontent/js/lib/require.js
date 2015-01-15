@@ -1,6 +1,6 @@
 /**
 *	little lightweight framework to create modular code
-*	@author thomas puttkamer
+*	@author thomas-p
 *
 */
 

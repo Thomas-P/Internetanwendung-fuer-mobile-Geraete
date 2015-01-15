@@ -66,7 +66,7 @@ define('xhr',function(debug) {
 			// return JSON
 			return deferred.resolve(JSON.parse(xmlhttp.responseText));
 		};
-		// onError -> xhr failded
+		// onError -> xhr failed
 		xmlhttp.onerror = function(event) {
 			deferred.reject(event);
 		};
