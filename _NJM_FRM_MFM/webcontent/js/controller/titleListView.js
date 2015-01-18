@@ -1,4 +1,4 @@
-define('titleListView', function(xhr) {
+define('titleListView', function(xhr, helper) {
 	/**
 	* load title to the title list an show them in the context
 	*/
@@ -83,9 +83,7 @@ define('titleListView', function(xhr) {
         element.style.setProperty('font-size',sizeFloat + sizeType);
 	}
 
-	// Call functions
-	document.addEventListener('DOMContentLoaded',function() {
-		loadTitleList();
-	});
+	// Call loadlist, when DOM ready
+	helper.domReady(loadTitleList);
 
 });

@@ -47,7 +47,9 @@ define('mainView',function(debug,navigation) {
 		var actionbar_object = document.getElementById("actionbar_object");
 		actionBarSwitches.push(actionbar_title,actionbar_object);
 		actionBarSwitches.forEach(function(element){
-			element.addEventListener('click',toggleActionBar);
+			var actionBarChanger = element.querySelector('.change-actionbar');
+			if (actionBarChanger)
+				actionBarChanger.addEventListener('click',toggleActionBar);
 		});
 		// topicViewElements
 		

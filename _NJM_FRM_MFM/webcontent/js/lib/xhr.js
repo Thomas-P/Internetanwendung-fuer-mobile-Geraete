@@ -60,7 +60,7 @@ define('xhr',function(debug) {
 			if (xmlhttp.status>=400) {
 				return deferred.reject(Error('Ressource not found.'));
 			}
-			var contentType = xmlhttp.getResponseHeader("Content-type").toLowerCase();
+			var contentType = String(xmlhttp.getResponseHeader("Content-type")).toLowerCase();
 			if (contentType.indexOf('json')==-1) 
 				return deferred.resolve(xmlhttp.responseText);
 			// return JSON
@@ -72,7 +72,7 @@ define('xhr',function(debug) {
 		};
 		xmlhttp.setRequestHeader("Accept", "application/json, application/xml, text/html, text/plain");
 		if (data) {
-			xmlhttp.setRequestHeader("Content-type", "application/json");
+			xmlhttp.setRequestHeader("Content-Type", "application/json");
 			xmlhttp.send(JSON.stringify(data));
 		} else {
 			xmlhttp.send();

@@ -1,0 +1,20 @@
+{
+  "name": "webserver",
+  "version": "1.0.0",
+  "description": "webserver with REST api for Internetanwendung für mobile Geräte",
+  "main": "webserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "formidable" : "*",
+    "mongojs" : "^0.7.14",
+    "JSONStream": "*"
+  },
+  "author": "Thomas-P <studium@tp-software.eu> (http://tp-software.eu)",
+  "contributors": [
+  	"",
+  	"Jörn Kreutel"
+  ],
+  "license": "MIT"
+}

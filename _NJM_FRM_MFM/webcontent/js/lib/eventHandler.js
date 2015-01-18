@@ -24,7 +24,7 @@ define('eventHandler',function() {
 	* declare some id function on CustomEvent (see for a non standard alternative: 
 	* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/__defineGetter__
 	*/
-	CustomEvent.prototype.desc = function() {
+	customEvent.prototype.desc = function() {
 		return (this.group ? this.group : "") + "_" + (this.type ? this.type : "") + "_" + (this.target ? this.target : "");
 	};
 

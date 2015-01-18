@@ -1,13 +1,29 @@
-define('crud',function(debug, xhr, test) {
+define('crud',function(debug, xhr, eventHandler) {
+
+	var apiLink = 'api';
 
 	debug = debug.createConsole('crud');
 	debug.log('module loaded');
 
-	function crudControl(method, uri, data, callback) {
+	function crudControl(method, uri, data, callback, target) {
 		xhr(uri, {
 			method: method,
 			data: data || null
-		}, callback);
+		}, function(err,data) {
+			if (callback)
+				callback(err,data);
+			if (err)
+				return
+			var methodResult
+			switch (String(method).toUpperCase()) {
+				case 'POST': 	methodResult = 'create'; break;
+				case 'GET': 	methodResult = 'read'; break;
+				case 'PUT': 	methodResult = 'update'; break;
+				case 'DELETE': 	methodResult = 'delete'; break;
+			}
+			var event = new eventHandler.customEvent( 'crud', methodResult, target, data)
+			eventHandler.notifyListeners(event);
+		});
 	}
 
 	var operations = {};
@@ -17,12 +33,12 @@ define('crud',function(debug, xhr, test) {
 	*
 	*
 	*/
-	operations.createTopicView = function(topicId, title, callback) {
-		crudControl("POST","http2mdb/topicviews",{
-			topicid : topicId,
+	operations.createTopicView = function(title, callback) {
+		console.log('test');
+		crudControl("POST",apiLink + '/topicview/',{
 			title : title,
-			content_items : []
-		},callback);
+			contentItems : []
+		},callback,'topicView');
 
 	};
 
@@ -31,8 +47,8 @@ define('crud',function(debug, xhr, test) {
 	*
 	*
 	*/
-	operations.readTopicview = function(topicId, callback) {
-		crudControl("GET", "http2mdb/topicviews/" + topicId, null, callback);
+	operations.readTopicView = function(topicId, callback) {
+		crudControl("GET", apiLink + '/topicview/' + topicId, null, callback,'topicView');
 	};
 
 
@@ -40,10 +56,10 @@ define('crud',function(debug, xhr, test) {
 	*
 	*
 	*/
-	operations.updateTopicview = function(topicId, update, callback) {
+	operations.updateTopicView = function(topicId, update, callback) {
 		if (!callback)
 			callback = function() {};
-		crudControl("UPDATE", "http2mdb/topicviews/" + topicId, update, callback);
+		crudControl("PUT", apiLink + '/topicview/' + topicId, update, callback,'topicView');
 	};
 
 
@@ -51,33 +67,25 @@ define('crud',function(debug, xhr, test) {
 	*
 	*
 	*/
-	operations.deleteTopicview = function(topicId, callback) {
+	operations.deleteTopicView = function(topicId, callback) {
 		if (!callback)
 			callback = function() {};
-		crudControl("DELETE", "http2mdb/topicviews/" + topicId, null, callback);
+		crudControl("DELETE", apiLink + '/topicview/' + topicId, null, callback,'topicView');
 	};
 
 
-	/** NJM3 (3) nur content_items via REST einfügen **/
+	/** NJM3 (3) nur contentItems via REST einfügen **/
 	operations.addContentItem = function (topicId,contentItem, callback) {
 
 		// for updating, we identify the topicview passing the id and then only pass the attributes to be updated
-		crudControl("PUT", "http2mdb/topicviews/" + topicId + "/content_items", contentItem, function(err,updated) {
-			if (err)
-				return callback(err);
-			callback(updated != 1, updated == 1);
-		});
+		crudControl("PUT", apiLink + '/topicview/' + topicId + '/contentItems/', contentItem, callback,'contentItems');
 	};
 
-	/** NJM3 (4) content_items via REST leeren **/
+	/** NJM3 (4) contentItems via REST leeren **/
 	operations.removeContentItem = function (topicId,itemType, callback) {
 
 		// for updating, we identify the topicview passing the id and then only pass the attributes to be updated
-		crudControl("DELETE", "http2mdb/topicviews/" + topicId + "/content_items/" + itemType , null, function(err,updated) {
-			if (err)
-				return callback(err);
-			callback(updated != 1, updated == 1);
-		});
+		crudControl("DELETE", apiLink + '/topicview/' + topicId + '/contentItems/' + itemType , null, callback,'contentItems');
 	};
 
 
@@ -85,27 +93,27 @@ define('crud',function(debug, xhr, test) {
 	* these functions need to be implemented for the njm exercises
 	*/
 	operations.createObject = function(obj, callback) {
-		crudControl("POST", "http2mdb/objects/", obj, callback);
+		crudControl("POST", apiLink + '/object/', obj, callback,'object');
 	};
 
 
 	operations.readObject = function(objId, callback) {
-		crudControl("GET", "http2mdb/objects/" + objId, null, callback);
+		crudControl("GET", apiLink + '/object/' + objId, null, callback,'object');
 	};
 
 
 	operations.updateObject = function(obj, callback) {
-		crudControl("PUT", "http2mdb/objects/" + obj.id, obj, callback);
+		crudControl("PUT", apiLink + '/object/' + obj.id, obj, callback,'object');
 	};
 
 
 	operations.deleteObject = function(objId, callback) {
-		crudControl("DELETE", "http2mdb/objects/" + objId, null, callback);
+		crudControl("DELETE", apiLink + '/object/' + objId, null, callback,'object');
 	};
 
 
 	operations.readAllObject = function(callback) {
-		crudControl("GET", "http2mdb/objects/", null, callback);
+		crudControl("GET", apiLink + '/object/', null, callback,'object');
 	};
 
 	/**

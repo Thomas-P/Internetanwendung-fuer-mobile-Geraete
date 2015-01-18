@@ -46,9 +46,11 @@ define('helper',function(debug) {
 		return rest;
 	};
 
+
 	helper.startsWith = function startsWith(string, substring) {
 		return string.indexOf(substring) === 0;
 	};
+
 
 	helper.endsWith = function endsWith(string, substring) {
 		if (!string || !substring) {
@@ -56,6 +58,8 @@ define('helper',function(debug) {
 		}
 		return string.length >= substring.length && string.substring(string.length - substring.length) == substring;
 	};
+
+
 	// http://stackoverflow.com/questions/2090551/parse-query-string-in-javascript
 	helper.getQueryVariable = function(variable) {
 	    var query = window.location.search.substring(1);
@@ -68,6 +72,22 @@ define('helper',function(debug) {
 	    }
 	    console.log('Query variable %s not found', variable);
 	}
+
+
+	helper.clone = function(obj) {
+	    if (null == obj || "object" != typeof obj) return obj;
+	    var copy = obj.constructor();
+	    for (var attr in obj) {
+	        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+	    }
+	    return copy;
+	}
+
+	helper.domReady = function(callback) {
+		// Call functions
+		document.addEventListener('DOMContentLoaded',callback);
+	}
+
 
 	return helper;
 
