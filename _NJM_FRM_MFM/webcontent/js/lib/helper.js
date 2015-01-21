@@ -88,6 +88,34 @@ define('helper',function(debug) {
 		document.addEventListener('DOMContentLoaded',callback);
 	}
 
+	helper.getDomElement = function(element) {
+		var domElement;
+		if ('string' == typeof element) 
+			domElement = document.querySelector(element);
+		else 
+			domElement = element;
+		if (element && !domElement)
+			console.error('helper.getDomElement::Could not find an domElement for ',element);
+		return domElement;
+	}
+
+	/**
+	*
+	*/
+	helper.moveDomElements = function(element, target, insertBefore ) {
+		element = helper.getDomElement(element);
+		target = helper.getDomElement(target);
+		insertBefore = helper.getDomElement(insertBefore);
+		if ( !(element && target) )  {
+			console.error('helper.moveDomElements::element or target not findable.',element,target);
+			return null;
+		}
+		if (insertBefore)
+			target.insertBefore(element, insertBefore);
+		else
+			target.appendChild(element);
+		return element;
+	}
 
 	return helper;
 

@@ -34,7 +34,7 @@ define('crud',function(debug, xhr, eventHandler) {
 	*
 	*/
 	operations.createTopicView = function(title, callback) {
-		console.log('test');
+
 		crudControl("POST",apiLink + '/topicview/',{
 			title : title,
 			contentItems : []

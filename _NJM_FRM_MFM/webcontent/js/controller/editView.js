@@ -2,241 +2,129 @@
 * @author Jörn Kreutel
 * @refactored by thomas-p
 */
-define('editView',function(debug) {
+define('editView',function(debug,helper,longPress,eventHandler) {
 
-	debug = debug.createConsole('crud');
+	debug = debug.createConsole('controller/editView');
 	debug.log('module loaded');
 
-	var topicId;
+	var editView = null;
+	var tabsContainer = null;
+	var inactiveTabsContainer = null;
+	var newElementTab = null;
 
-
-
-
-
-});
-// extend the iam module
-var iam = (function(iammodule) {
-
-	console.log("loading EditviewViewContoller as submodule controller.editview of: " + iammodule);
-
-	// create the controller submodule if it doesn't exist yet
-	if (!iammodule.controller) {
-		iammodule.controller = {};
+	
+	/**
+	*
+	*/
+	function selectTab(elementType) {
+		window.location.hash = 'tab_' + elementType;
+		// we dispatch a ui event that allows the controllers inside the tab to react on tab selection (e.g. by setting focus)
+		eventHandler.notifyListeners(eventHandler.customEvent('ui', 'tabSelected', elementType));
 	}
 
-	// for (var mod in iammodule) {
-	// console.log("found submodule: iam." + mod);
-	// }
+	/**
+	*
+	*/
+	function showTab(elementType) {
+		if (Array.prototype.indexOf.call(tabsContainer.childNodes, newElementTab) == -1)
+			helper.moveDomElements(newElementTab,tabsContainer);
+		helper.moveDomElements('#tab_' + elementType, tabsContainer, newElementTab);
+	}
 
-	function EditviewViewController(_topicid, _eventDispatcher, _crudOperations) {
+	/**
+	*
+	*/
+	function hideTab(elementType) {
+		helper.moveDomElements('#tab_' + elementType, inactiveTabsContainer);
+	}
 
-		/*
-		 * ui elements that are used at various places in the code;
-		 */
-		var tabsContainer = null;
-		var inactiveTabsContainer = null;
-		var newElementTab = null;
-		var editview = null;
+	/*
+	 * methods for handling opening and closing the editview
+	 */
+	function openEditView() {
+		if (!editView)
+			return debug.error('editView not set');
+		editView.classList.toggle('overlay');
+		// we will set the fragement identifier to the title tab to trigger the :target selector for foreground style assignment
+		selectTab('title');
+	}
 
-		/*
-		 * the topicid
-		 */
-		var topicid = _topicid;
+	function closeEditView() {
+		selectTab("");
+		editview.classList.toggle("overlay");
+	}
 
-		/*
-		 * the event dispatcher used for communication between the single view controllers of a composite view
-		 */
-		var eventDispatcher = _eventDispatcher;
-
-		/*
-		 * the implementation of the crud operations that we use
-		 */
-		var crudops = _crudOperations;
-
-		this.initialiseView = function() {
-			console.log("initialiseEditview()");
-
-			// initialise the ui elements
-			editview = document.getElementById("editview");
-			tabsContainer = document.getElementsByClassName("tabsContainer")[0];
-			inactiveTabsContainer = document.getElementsByClassName("inactiveTabsContainer")[0];
-			newElementTab = document.getElementById("tab_newElement");
-
-			// initialise the long press handling
-			initialiseLongPressHandling.call(this);
-
-			// initialise the form for adding elements
-			initialiseAddElementForm();
-
-			// in case a topicview is created we add the newElementTab to the tab bar
-			eventDispatcher.addEventListener(iam.eventhandling.customEvent("crud", "read|created", "topicview"), function(event) {
-				iam.uiutils.cutNpasteElement(newElementTab, tabsContainer);
-			}.bind(this));
-			// in case it is deleted, we remove the element again
-			eventDispatcher.addEventListener(iam.eventhandling.customEvent("crud", "deleted", "topicview"), function(event) {
-				iam.uiutils.cutNpasteElement(newElementTab, inactiveTabsContainer);
-				if (editview.classList.contains("overlay")) {
-					editview.classList.toggle("overlay");
-				}
-			}.bind(this));
+	function keepEditView(event) {
+		event.stopPropagation();
+	}
 
 
-			/** FRM2 (7) Anzeigen des Objekttabs für Editview **/
-			eventDispatcher.addEventListener(iam.eventhandling.customEvent("crud", "read|created", "object"), function(event) {
+	/** FRM2 (8) **/
+	function fillObjektData(data) {
+		// TODO
+		var root = document.querySelector('form[name=form_objekt]');
+		if (!root) {
+			console.error('editView.fillObjektData:: Could not find root');
+			return;
+		}
+		var titleElement = root.querySelector('input[name=src]');
+		if (titleElement)
+			titleElement.value = data.title || '';
+		var description = root.querySelector('textarea[name=description');
+		if (description)
+			description.innerText = data.description || '';
+	}
+
+
+	function initialize() {
+		editView = document.querySelector('#editview');
+		tabsContainer = document.querySelector('.tabsContainer');
+		inactiveTabsContainer = document.querySelector('#inactiveTabsContainer'); 
+		newElementTab = document.getElementById('tab_newElement');
+		longPress.enableLongPress(document.getElementById('mainview'), openEditView);
+
+		if (editView)
+			editView.addEventListener('click',closeEditView);
+		if (tabsContainer)
+			tabsContainer.addEventListener('click',keepEditView);
+
+		eventHandler.addEventListener(
+			eventHandler.customEvent('crud','read|create','topicview'),
+			function(){
+				helper.moveDomElements(newElementTab, tabsContainer);
+		});
+
+		eventHandler.addEventListener(
+			eventHandler.customEvent('crud','deleted','topicview'),
+			function(){
+				helper.moveDomElements(newElementTab, inactiveTabsContainer);
+				if ( false == (editView && editView.classList.contains('overlay')) )
+					return;
+				editView.classList.toggle('overlay');
+		});
+
+		/** FRM2 (7) Anzeigen des Objekttabs für Editview **/
+		eventHandler.addEventListener(
+			eventHandler.customEvent('crud', 'read|create', 'object'), 
+			function(event) {
 				console.log('Editview: FRM2 (7) Tab Anzeigen', event);
-				fillObjektData(event.data || {});
-				showTabForElementtype("objekt");
-				showTabForElementtype("objektList");
-			}.bind(this));
+				var data = event && event.data && event.data[0] || null;
+				fillObjektData(data);
+				showTab('objekt');
+				showTab('objektList');
+		});
 
-			/** FRM2 (7) Anzeigen des Objekttabs für Editview **/
-			eventDispatcher.addEventListener(iam.eventhandling.customEvent("crud", "deleted", "object"), function(event) {
-				console.log('Editview: FRM2 (7) Tab ausblenden', event);
-				fillObjektData(event.data || {});
-				hideTabForElementtype("objekt");
-				// TODO: Check showTabForElementtype("objektList");
-			}.bind(this));
-
-			// initialise the controller for the title form
-			var titleformVC = iam.controller.titleform.newInstance(topicid, eventDispatcher, crudops);
-			titleformVC.initialiseTitleForm();
-			
-			// for MFM: use some extended form example
-			var einfuehrungstextformVC = iam.controller.einfuehrungstextform.newInstance(topicid, eventDispatcher, crudops);
-			einfuehrungstextformVC.initialiseEinfuehrungstextForm();
-		}
-		
-		/***************************************************************************************
-		 *                               long press handling
-		 ***************************************************************************************/
-		function initialiseLongPressHandling() {
-			// we enable longpress on the maincontent view which will result in opening the ediview
-			iam.uiutils.enableLongpress(document.getElementById("mainview"), openEditview);
-
-			// these two onclick handlers deal with keeping/closing the editview
-			editview.onclick = function(event) {
-				closeEditview(event);
-			}.bind(this);
-
-			tabsContainer.onclick = function(event) {
-				keepEditview(event);
-			}
-			
-			// we allow for another way to open the editview: click on the header 
-			document.getElementsByTagName("header")[0].onclick = openEditview;
-			// we block propagation of onclick in the zurück button (otherwise the above onclick handler will be invoked)
-			document.getElementById("navigation_button").onclick = function(event) {
-				event.stopPropagation();
-			}
-		}
-
-		/***************************************************************************************
-		 *                               adding new elements
-		 ***************************************************************************************/
-		function initialiseAddElementForm() {
-			document.getElementById("form_addElement").onsubmit = function(event) {
-				console.log("got submit on addElement form: " + event.target);
-
-				// get the type of element that shall be created
-				var elementType = event.target.elementType.value
-				console.log("selected element type is: " + elementType);
-				showAddElementForm(elementType);
-				return false;
-			}
-		}
-
-		/*
-		 * show the form that allows to select new elements
-		 */
-		function showAddElementForm(elementType) {
-			console.log("showAddElementForm: " + elementType);
-			switch (elementType) {
-				case "einfuehrungstext":
-					showTabForElementtype(elementType);
-					selectTab(elementType);
-					break;
-				case "objekt":
-					showTabForElementtype(elementType);
-					showTabForElementtype("objektList");
-					selectTab(elementType);
-					break;
-				default:
-					iam.uiutils.showToast("Derzeit kein Editor verfügbar für Elementtyp " + elementType + "!");
-			}
-		}
-
-		/***************************************************************************************
-		 *                               UTILITY FUNCTIONS
-		 ***************************************************************************************/
-
-		/*
-		 * add / remove / select tabs
-		 */
-		function showTabForElementtype(elementType) {
-			iam.uiutils.cutNpasteElementById("tab_" + elementType, tabsContainer, "tab_newElement");
-		}
-
-		function hideTabForElementtype(elementType) {
-			iam.uiutils.cutNpasteElementById("tab_" + elementType, inactiveTabsContainer);
-		}
-
-		function selectTab(elementType) {
-			window.location.hash = "tab_" + elementType;
-			// we dispatch a ui event that allows the controllers inside the tab to react on tab selection (e.g. by setting focus)
-			eventDispatcher.notifyListeners(iam.eventhandling.customEvent("ui", "tabSelected", elementType));
-		}
-
-		/*
-		 * methods for handling opening and closing the editview
-		 */
-		function openEditview() {
-			console.log("openEditview()");
-			editview.classList.toggle("overlay");
-			// we will set the fragement identifier to the title tab to trigger the :target selector for foreground style assignment
-			selectTab("title");
-		}
-
-
-		function closeEditview() {
-			console.log("closeEditview()...");
-			// reset the fragment identifier. This will keep the # in the browser location field
-			selectTab("");
-			editview.classList.toggle("overlay");
-		}
-		
-		function keepEditview(event) {
-			console.log("keepEditview()");
-			event.stopPropagation();
-		}
-		/** FRM2 (8) **/
-		function fillObjektData(data) {
-			// TODO
-			var root = document.querySelector('form[name=form_objekt]');
-			if (!root) {
-				console.error('fillObjektData(): Could not find root');
-				return;
-			}
-			var titleElement = root.querySelector('input[name=src]');
-			if (titleElement)
-				titleElement.value = data.title || '';
-			var description = root.querySelector('textarea[name=description');
-			if (description)
-				description.innerText = data.description || '';
-		}
+		/** FRM2 (7) Anzeigen des Objekttabs für Editview **/
+		eventHandler.addEventListener(eventHandler.customEvent('crud', 'delete', 'object'), function(event) {
+			console.log('Editview: FRM2 (7) Tab ausblenden', event);
+			var data = event && event.data && event.data[0] || null;
+			fillObjektData(data);
+			hideTab('objekt');
+			// TODO: Check showTab('objektList');
+		});
 
 	}
 
-	// a factory method
-	function newInstance(topicid, eventDispatcher, crudOperations) {
-		return new EditviewViewController(topicid, eventDispatcher, crudOperations);
-	}
-
-
-	iammodule.controller.editview = {
-		newInstance : newInstance
-	}
-
-	// return the module
-	return iammodule;
-
-})(iam || {});
+	// initialize when DOM Ready
+	helper.domReady(initialize);
+});

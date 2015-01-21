@@ -1,5 +1,5 @@
 define('objectView',function(debug,crud,helper,eventHandler,topicView) {
-	console.log('topic',topicView)
+
 	debug = debug.createConsole('controller/objectView');
 	debug.log('module loaded');
 
@@ -52,6 +52,7 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 					* NJM3 (1) erstelle ein Objekt und füge es der topicView an.
 					*/
 					objectData = data[0];
+					showObject();
 					var contentItem = {
 						type: 'objekt',
 						renderContainer: 'column_left',
@@ -75,6 +76,7 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 					if (err)
 						alert('The object element could not be updated!');
 					objectData = data[0];
+					showObject();
 				}); // end crud.updateObject
 			}.bind(this));
 		}
@@ -91,8 +93,8 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 							return alert('Could not delete object');
 						var tViewObject = topicView.getTopicView();
 						crud.removeContentItem(tViewObject.title,'objekt',function(err,data) {
-							// test
-							console.log('T',arguments);
+							objectData = null;
+							showObject();
 						})
 					});
 				}
@@ -107,8 +109,8 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 	*	display the content of topicView
 	*/
 	var topicViewChange = function(event) {
-		console.log('Got a new topicView',event);
-		var topicView = event.data[0];
+		// Object from topicView event, so no array
+		var topicView = event.data;
 		var objectConnector = null;
 		if (topicView && topicView.contentItems && Array.isArray(topicView.contentItems)) {
 			for (var i=0, len= topicView.contentItems.length; i<len; i++) {
@@ -129,7 +131,7 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 		
 	}
 	// create an event for displayContent
-	eventHandler.addEventListener(eventHandler.customEvent("crud", "create|read|update", "topicView"),topicViewChange.bind(this));
+	eventHandler.addEventListener(eventHandler.customEvent("topicView", "create|read|update", "topicView"),topicViewChange.bind(this));
 
 	// initialize when dom Ready
 //	helper.domReady(initialize);

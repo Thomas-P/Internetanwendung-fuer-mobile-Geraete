@@ -10,6 +10,11 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 		return tp;
 	}
 
+	var notifyTopicViewEvents = function(eventType, target)  {
+		var event = new eventHandler.customEvent( 'topicView', eventType, target || 'topicView', topicView);
+		eventHandler.notifyListeners(event);
+	}
+
 	// adding eventListener for buttons
 	var addEvents = function() {
 		var button;
@@ -29,6 +34,8 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 				crud.updateTopicView(topicView.title || '',topicView,function(err,data) {
 					if (err)
 						alert('The topicview element could not be updated!');
+					topicView = data[0] || {};
+					notifyTopicViewEvents('update');
 				});
 			}.bind(this));
 		}
@@ -57,7 +64,6 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 			document.location.href = '/'
 			return;
 		}
-		topicView = event.data[0] || {};
 		var topicTitle = document.getElementById('topicTitle');
 
 		if (topicTitle) {
@@ -87,7 +93,11 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 						alert('could not read topicview');
 						document.location.href = '/';
 					}
+					topicView = data[0] || {};
+					notifyTopicViewEvents('create');
 				}) // end crud.createTopicView
+				topicView = data[0] || {};
+				notifyTopicViewEvents('read');
 		}) // end crud.readTopicView
 	}
 
