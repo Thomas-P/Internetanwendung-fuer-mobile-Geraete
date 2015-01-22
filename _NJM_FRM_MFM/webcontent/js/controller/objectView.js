@@ -3,11 +3,38 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 	debug = debug.createConsole('controller/objectView');
 	debug.log('module loaded');
 
-	var objectData = null;
+	var _objectData = null;
+	var _topicView = null;
+
+	/**
+	*	create an object
+	*/
+	function createObject(objectData) {
+		crud.createObject(objectData,function(err,data) {
+			if (err)
+				return alert('Could not create object.');
+			/**
+			* NJM3 (1) erstelle ein Objekt und füge es der topicView an.
+			*/
+			_objectData = data[0];
+			showObject();
+			var contentItem = {
+				type: 'objekt',
+				renderContainer: 'column_left',
+				objectId: _objectData._id
+			}
+			var tViewObject = topicView.getTopicView();
+			if (!tViewObject.title) {
+				return alert('No topic view set.');
+			}
+			crud.addContentItem(tViewObject.title,contentItem);
+		}) // end crud.createObject
+	} // end createObject
 
 	/** NJM2 (6) Objekt anzeigen**/
 	function showObject() {
-		var objData = objectData;
+		console.log('NJM2 (6) showObject',_objectData);
+		var objData = _objectData;
 		var element = document.getElementById('objekt');
 		if (!element) {
 	 		console.error('Could\'nt find "Zeitdokumente" element.');
@@ -29,6 +56,29 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 	 	figcaption.textContent = objData.title || '';
 	}
 
+	/**
+	*	create action listener for delete action
+	*/
+	function deleteObjectAction(button) {
+		if (button) {
+			// delete
+			button.addEventListener('click', function(event) {
+				event.preventDefault();
+				if (_objectData._id && confirm('Delete these object?')) {
+
+					crud.deleteObject(_objectData._id,function(err,data) {
+						if (err) 
+							return alert('Could not delete object');
+						var tViewObject = topicView.getTopicView();
+						crud.removeContentItem(tViewObject.title,'objekt',function(err,data) {
+							_objectData = null;
+							showObject();
+						})
+					});
+				}
+			})
+		}
+	} // end deleteButtonAction
 
 	// adding eventListener for buttons
 	var addEvents = function() {
@@ -38,33 +88,14 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 			// create
 			button.addEventListener('click',function(event) {
 				event.preventDefault();
-				if (objectData)
+				if (_objectData)
 					return alert('Object already exists');
 				objectTemplate = {
 					src: null,
 					title: 'Neues Objekt',
 					description: 'Dies ist ein neues Objekt, dessen Werte noch befüllt werden müssen.'
 				};
-				crud.createObject(objectTemplate,function(err,data) {
-					if (err)
-						return alert('Could not create object.');
-					/**
-					* NJM3 (1) erstelle ein Objekt und füge es der topicView an.
-					*/
-					objectData = data[0];
-					showObject();
-					var contentItem = {
-						type: 'objekt',
-						renderContainer: 'column_left',
-						objectId: objectData._id
-					}
-					var tViewObject = topicView.getTopicView();
-					if (!tViewObject.title) {
-						return alert('No topic view set.');
-					}
-					crud.addContentItem(tViewObject.title,contentItem);
-				}) // end crud.createObject
-
+				createObject(objectTemplate);
 			}.bind(this));// end button.addEventListener
 		}
 		button = document.getElementById('updateObjectAction');
@@ -72,69 +103,90 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 			// change
 			button.addEventListener('click',function(event) {
 				event.preventDefault();
-				crud.updateObject(objectData,function(err,data) {
+				crud.updateObject(_objectData,function(err,data) {
 					if (err)
 						alert('The object element could not be updated!');
-					objectData = data[0];
+					_objectData = data[0];
 					showObject();
 				}); // end crud.updateObject
 			}.bind(this));
 		}
 
 		button = document.getElementById('deleteObjectAction');
-		if (button) {
-			// delete
-			button.addEventListener('click', function(event) {
-				event.preventDefault();
-				if (objectData._id && confirm('Delete these object?')) {
+		deleteObjectAction(button);
+		button = document.getElementById('deleteObjectButton');
+		deleteObjectAction(button);
 
-					crud.deleteObject(objectData._id,function(err,data) {
-						if (err) 
-							return alert('Could not delete object');
-						var tViewObject = topicView.getTopicView();
-						crud.removeContentItem(tViewObject.title,'objekt',function(err,data) {
-							objectData = null;
-							showObject();
-						})
-					});
-				}
-			}.bind(this))
-		}
+		/**
+		* FRM2 (2)
+		*/
+		var objektForm = document.querySelector('form[name=form_objekt]');
+		objektForm.addEventListener('submit',function(event) {
+			console.log('FRM2 (2) Modifizieren und Erzeugen via submit');
+			event.stopPropagation();
+			event.preventDefault();
+			var form = document.forms.form_objekt || null;
+			var title, src, description;
+			if (form.title && form.title.value) {
+				title = form.title.value;
+			} else {
+				return alert('object requires a title.');
+			}
+			if (form.src && form.src.value) {
+				src = form.src.value;
+			}
+			if (form.description && form.description.value) {
+				description = form.description.value;
+			}
+			var object = {
+				'title' : title,
+				'src'	: src,
+				'description'	: description
+			}
+			console.log(object);
+			if (_objectData && _objectData._id) {
+				object._id = _objectData._id;
+				crud.updateObject(_objectData._id,object,function(err,data) {
+					_objectData = data[0] || null;
+				});
+			} else {
+				createObject(object);
+			}
+			return false;
+		})
 	}
 
 
-	
-
 	/**
-	*	display the content of topicView
+	*	display the content of _topicView
 	*/
 	var topicViewChange = function(event) {
-		// Object from topicView event, so no array
-		var topicView = event.data;
+		// Object from _topicView event, so no array
+		_topicView = null;
+		if (event && event.data && event.data[0])
+			_topicView = event.data[0];
 		var objectConnector = null;
-		if (topicView && topicView.contentItems && Array.isArray(topicView.contentItems)) {
-			for (var i=0, len= topicView.contentItems.length; i<len; i++) {
-				objectConnector = topicView.contentItems[i];
+		if (_topicView && _topicView.contentItems && Array.isArray(_topicView.contentItems)) {
+			for (var i=0, len= _topicView.contentItems.length; i<len; i++) {
+				objectConnector = _topicView.contentItems[i];
 				if (objectConnector.type && objectConnector.type == 'objekt') 
 					break;
 				objectConnector = null;
 			} // end for
 			if (objectConnector) {
 				crud.readObject(objectConnector.objectId,function(err,data) {
-
 					// store object 
-					objectData = data[0];
+					_objectData = data[0];
 					showObject() // show object
 				})// end crud.readObject
 			} // find an objectConnector
-		} // end topicView check
+		} // end _topicView check
 		
 	}
 	// create an event for displayContent
-	eventHandler.addEventListener(eventHandler.customEvent("topicView", "create|read|update", "topicView"),topicViewChange.bind(this));
+	eventHandler.addEventListener(eventHandler.customEvent("crud", "create|read|update", "topicView"),topicViewChange);
 
 	// initialize when dom Ready
-//	helper.domReady(initialize);
 	helper.domReady(addEvents);
 
 	

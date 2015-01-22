@@ -102,8 +102,8 @@ define('crud',function(debug, xhr, eventHandler) {
 	};
 
 
-	operations.updateObject = function(obj, callback) {
-		crudControl("PUT", apiLink + '/object/' + obj.id, obj, callback,'object');
+	operations.updateObject = function(objId, obj, callback) {
+		crudControl("PUT", apiLink + '/object/' + objId, obj, callback,'object');
 	};
 
 
@@ -113,7 +113,7 @@ define('crud',function(debug, xhr, eventHandler) {
 
 
 	operations.readAllObject = function(callback) {
-		crudControl("GET", apiLink + '/object/', null, callback,'object');
+		crudControl("GET", apiLink + '/object/', null, callback,'objectList');
 	};
 
 	/**

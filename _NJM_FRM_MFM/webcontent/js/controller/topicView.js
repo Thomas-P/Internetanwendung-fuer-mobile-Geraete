@@ -3,7 +3,7 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 	debug = debug.createConsole('controller/topicView');
 	debug.log('module loaded');
 
-	var topicView = {};
+	var topicView = null;
 
 	var getTopicView = function() {
 		var tp = helper.clone(topicView);
@@ -23,6 +23,22 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 			// create
 			button.addEventListener('click',function(event) {
 				event.preventDefault();
+				if (topicView)
+					return alert('Topic view already set.');
+				var topicTitle = helper.getQueryVariable('topic');
+				if (!topicTitle)
+					topicTitle = 'No title set.';
+				return crud.createTopicView(topicTitle,function(err,data) {
+					if (err || !data[0]) {
+						// couldn't create, go back to title list
+						alert('could not read topicview');
+						document.location.href = '/';
+						return;
+					}
+					topicView = data[0] || {};
+					notifyTopicViewEvents('create');
+				}) // end crud.createTopicView
+
 				alert('This button isn\'t need anymore. A topicView will be created on site load.');
 			}.bind(this));
 		}
@@ -39,7 +55,7 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 				});
 			}.bind(this));
 		}
-
+//document.forms['form_objekt']['titel'].value
 		button = document.getElementById('deleteTopicViewAction');
 		if (button) {
 			// delete
@@ -85,7 +101,8 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 		}
 		crud.readTopicView(topicTitle,function(err,data) {
 			// exists an error, or empty data
-			if (err || !data[0]) 
+			if (err || !data[0]) {
+				/*
 				// not exists, create them
 				return crud.createTopicView(topicTitle,function(err,data) {
 					if (err || !data[0]) {
@@ -96,8 +113,13 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 					topicView = data[0] || {};
 					notifyTopicViewEvents('create');
 				}) // end crud.createTopicView
-				topicView = data[0] || {};
-				notifyTopicViewEvents('read');
+				*/ // removed for FRM2
+				topicView = null;
+				return;
+			} // end error or no data
+			// set topicView
+			topicView = data[0] || {};
+			notifyTopicViewEvents('read');
 		}) // end crud.readTopicView
 	}
 

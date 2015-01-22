@@ -34,7 +34,7 @@ define('eventHandler',function() {
 		// check whether the event type contains a "|" symbol that identifies more than a single event
 		if ( -1 !== event.type.indexOf("|") ) {
 			
-			console.log("event specifies a disjunction of types: " + event.type + ". Will add a listener for each concrete type");
+			//console.log("event specifies a disjunction of types: " + event.type + ". Will add a listener for each concrete type");
 			
 			var eventTypeArray = event.type.split("|");
 
@@ -44,18 +44,18 @@ define('eventHandler',function() {
 
 		} else {
 
-			console.log("adding new event listener for event " + event.desc());
+			//console.log("adding new event listener for event " + event.desc());
 			
 			var eventDescription = event.desc();
 
-			if ( !eventListeners[eventDescription] ) {
+			if ( ! eventListeners[eventDescription] ) {
 
-				console.log("creating new event listener list.");
+				//console.log("creating new event listener list.");
 				eventListeners[eventDescription] = [];
 
 			}
 
-			console.log("adding listener to listeners.");
+			//console.log("adding listener to listeners.");
 			eventListeners[eventDescription].push(callback);
 
 		}
@@ -66,8 +66,7 @@ define('eventHandler',function() {
 
 		var eventDescription = event.desc();
 		var eventList = eventListeners[eventDescription] || null;
-
-		if (!eventList || 0 === eventList.length)
+		if ( ! eventList || 0 === eventList.length)
 			return;
 
 		eventList.forEach(function(eventFunction) {

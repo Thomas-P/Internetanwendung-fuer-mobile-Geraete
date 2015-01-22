@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="css/uiutils.css"/>
 	<link rel="stylesheet" href="css/css.css"/>
 	<link rel="stylesheet" href="css/objekt.css"/>
+	<link rel="stylesheet" href="css/objektListe.css"/>
 
 	<script type="text/javascript" src="js/lib/require.js"></script>
 	<script type="text/javascript" src="js/lib/debug.js"></script>
@@ -176,14 +177,14 @@
 			<h2><a href="#tab_objekt">Objekt</a></h2>
 			<div class="scrollview">
 			<p>
-				<form name="form_objekt" action="/http2mdb/objects/" method="post" onsubmit="return confirm('submit?')">
-				<input name="src" placeholder="Titel" required="required" autofocus="autofocus" autocomplete="off"/>
-				<!--<img src="./content/img/hm_als_fondrak_1961.jpg" class="object-img-thumbnail" />-->
-				<input type="file" name="src" class="object-img" placeholder="Bild">
+				<form name="form_objekt" action="/api/object/" method="post" onsubmit="return confirm('submit?')">
+				<input name="title" placeholder="Titel" required="required" autofocus="autofocus" autocomplete="off"/>
+				<img src="" class="object-img-thumbnail object-edit-img" id="pictureprev_object">
+				<input type="text" name="src" class="object-img" placeholder="Bild">
 				<textarea name="description" class="object-description" placeholder="Beschreibung"></textarea>
 					<input type="submit" value="Erzeugen" name="submit"/>
 				</form>
-				<button id="deleteTitleButton">
+				<button id="deleteObjectButton">
 					Löschen
 				</button>
 			</p>
@@ -194,14 +195,15 @@
 			<div class="scrollview">
 				<table class="object-list">
 					<tr id="{object_id}">
-						<td>
-							<span>#{object_id}</span>
-							<span>#{object_title}</span>
-							<span>#{object_description}</span>
+						<td class="object-attr">
+							<span class="object-id">#{object_id}</span>
+							<span class="object-title">#{object_title}</span>
+							<span class="object-description">#{object_description}</span>
 						</td>
-						<td><img src="#" alt="" /></td>
+						<td class="object-image-td"><img src="#" alt="{object_title}" class="object-img-thumbnail" /></td>
 					</tr>
 				</table>
+<!-- 
 				<p>
 					Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				</p>
@@ -223,6 +225,7 @@
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				</p>
+-->				
 			</div>
 		</section>
 	</div>

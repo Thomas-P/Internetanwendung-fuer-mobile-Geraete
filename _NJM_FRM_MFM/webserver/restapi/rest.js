@@ -157,6 +157,7 @@ function createServer (apiLink,options) {
 			id = new ObjectId(parameter.id);
 			primaryKeyName = '_id';
 
+
 		} else {
 
 			id = parameter.id;
@@ -165,11 +166,13 @@ function createServer (apiLink,options) {
 		}
 		// create the object filter
 		var searchObject = {};
-		searchObject[primaryKeyName] = parameter.id;
+		searchObject[primaryKeyName] = id;
 
 		getData(req,function(err,data) {
 
 			// update a sub item of these item
+			if (data['_id']) 
+				delete data['_id'];
 			var insert = {};
 
 			if (parameter.data.length > 0) {
@@ -181,16 +184,12 @@ function createServer (apiLink,options) {
 				insert['$set'] = data;
 			}
 
-			if (data['_id']) 
-				data['_id'] = new ObjectId(data['_id']);
-
 			// database query
-			database[collection].update(searchObject, insert, function(err, updated) {
-				console.log(err);
+			database[collection].update(searchObject, insert,{writeConcern:1}, function(err, updated) {
 				if (err) 
 					return callback({
 						errorNumber: 500,
-						errorMessage: 'Error occures while saving.'
+						errorMessage: 'Error occures while updating.'
 					}) // end callback
 				// return the full object
 				readItem(parameter,callback);
