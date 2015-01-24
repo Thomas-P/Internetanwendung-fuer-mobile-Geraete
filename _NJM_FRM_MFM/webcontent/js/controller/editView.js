@@ -65,7 +65,7 @@ define('editView',function(debug,helper,longPress,eventHandler,crud) {
 	/** FRM2 (8) **/
 	function fillObjektData(data) {
 		// TODO
-		console.log('FRM2 (8): fillObjektData,')
+		console.log('FRM2 (8): fillObjektData,',data)
 		var root = document.querySelector('form[name=form_objekt]');
 		if (!root) {
 			console.error('editView.fillObjektData:: Could not find root');

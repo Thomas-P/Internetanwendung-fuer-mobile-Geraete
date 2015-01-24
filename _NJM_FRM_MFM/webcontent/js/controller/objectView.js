@@ -10,6 +10,9 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 	*	create an object
 	*/
 	function createObject(objectData) {
+		if (!_topicView) {
+			return alert('Sorry, no topicView set.')
+		}
 		crud.createObject(objectData,function(err,data) {
 			if (err)
 				return alert('Could not create object.');
@@ -64,7 +67,11 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 			// delete
 			button.addEventListener('click', function(event) {
 				event.preventDefault();
-				if (_objectData._id && confirm('Delete these object?')) {
+				// FRM2 (10) only if object exists
+				if (!_objectData._id) {
+					return alert('No object!');
+				}
+				if (confirm('Delete these object?')) {
 
 					crud.deleteObject(_objectData._id,function(err,data) {
 						if (err) 
@@ -103,6 +110,8 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 			// change
 			button.addEventListener('click',function(event) {
 				event.preventDefault();
+				if (!_objectData)
+					return alert('No Object!');
 				crud.updateObject(_objectData,function(err,data) {
 					if (err)
 						alert('The object element could not be updated!');
@@ -113,6 +122,8 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 		}
 
 		button = document.getElementById('deleteObjectButton');
+		deleteObjectAction(button);
+		button = document.getElementById('deleteObjectAction');
 		deleteObjectAction(button);
 
 		/**
@@ -182,6 +193,15 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 	}
 	// create an event for displayContent
 	eventHandler.addEventListener(eventHandler.customEvent("crud", "create|read|update", "topicView"),topicViewChange);
+
+	var objectChange = function(event) {
+		var result = event.data
+		if (!result || !result[0])
+			return 
+		_objectData = result[0]
+		showObject()
+	}
+	eventHandler.addEventListener(eventHandler.customEvent("crud", "create|read|update|delete", "object"),objectChange);
 
 	// initialize when dom Ready
 	helper.domReady(addEvents);

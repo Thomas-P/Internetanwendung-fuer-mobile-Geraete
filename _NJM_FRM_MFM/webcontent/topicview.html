@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="css/objekt.css"/>
 	<link rel="stylesheet" href="css/objektListe.css"/>
 	<link rel="stylesheet" href="css/mme3.css"/>
+	<link rel="stylesheet" href="css/crud.css"/>
 
 	<script type="text/javascript" src="js/lib/require.js"></script>
 	<script type="text/javascript" src="js/lib/debug.js"></script>
@@ -20,9 +21,13 @@
 	<script type="text/javascript" src="js/lib/eventHandler.js"></script>
 	<script type="text/javascript" src="js/lib/navigation.js"></script>
 	<script type="text/javascript" src="js/lib/longPress.js"></script>
+	<script type="text/javascript" src="js/lib/objectId.js"></script>
 
 
+	<script type="text/javascript" src="js/controller/crudServer.js"></script>
+	<script type="text/javascript" src="js/controller/crudLokal.js"></script>
 	<script type="text/javascript" src="js/controller/crud.js"></script>
+
 	<script type="text/javascript" src="js/controller/mainView.js"></script>
 	<script type="text/javascript" src="js/controller/topicView.js"></script>
 	<script type="text/javascript" src="js/controller/objectView.js"></script>
@@ -49,7 +54,7 @@
 	<header>
 		<nav>
 			<!-- bind an event listener to this, see mainView -->
-			<a href="#" id="navigation_button" class="navigation-back detail-back">&lt;&lt; Zurück</a>
+			<a href="#" id="navigation_button" class="navigation-back detail-back">&lt;&lt; Zurück</a> <span class="crud-control"><input type="checkbox" checked name="crudServer" disabled> REST, <input type="checkbox" checked name="crudLocal" disabled> Lokal </span>
 		</nav>
 	</header>
 	<article id="mainview">

@@ -76,7 +76,6 @@ define('mme3',function(debug, helper, eventHandler) {
 	 	imageElement = document.querySelector('.detail-switch');
 	 	backElement = document.querySelector('.detail-back');
 	 	videoElement = document.getElementById('videoElement');
-	 	console.log(videoElement.pause)
 	 	if (! (mainElement && imageElement && backElement) ) {
 	 		console.error('Could not find elements.');
 	 		return;

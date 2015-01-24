@@ -75,6 +75,8 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 	*	display the content of topicView
 	*/
 	var displayContent = function(event) {
+		if (!topicView)
+			return
 		if (event.type == 'delete') {
 			alert('topic view deleted.')
 			document.location.href = '/'
@@ -101,7 +103,7 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 		}
 		crud.readTopicView(topicTitle,function(err,data) {
 			// exists an error, or empty data
-			if (err || !data[0]) {
+			if (err || !data || !data[0]) {
 				/*
 				// not exists, create them
 				return crud.createTopicView(topicTitle,function(err,data) {
