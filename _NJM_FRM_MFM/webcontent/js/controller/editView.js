@@ -144,7 +144,10 @@ define('editView',function(debug,helper,longPress,eventHandler,crud) {
 				if (deleteButton) {
 					deleteButton.style.setProperty('display',data ? 'block' : 'none');
 				}
-
+				var addOrUpdateObjectButton = document.querySelector('#addOrUpdateObjectButton');
+				if (addOrUpdateObjectButton) {
+					addOrUpdateObjectButton.value = 'Ändern';
+				}
 		});
 
 		/** FRM2 (7) Anzeigen des Objekttabs für Editview **/
@@ -157,6 +160,10 @@ define('editView',function(debug,helper,longPress,eventHandler,crud) {
 			var deleteButton = document.querySelector('#deleteObjectButton');
 			if (deleteButton) {
 				deleteButton.style.setProperty('display','none');
+			}
+			var addOrUpdateObjectButton = document.querySelector('#addOrUpdateObjectButton');
+			if (addOrUpdateObjectButton) {
+				addOrUpdateObjectButton.value = 'Erzeugen';
 			}
 		});
 

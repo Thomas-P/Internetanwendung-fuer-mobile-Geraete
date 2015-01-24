@@ -1,4 +1,4 @@
-define('mainView',function(debug,navigation) {
+define('mainView',function(debug,navigation,eventHandler) {
 
 	debug = debug.createConsole('mainViewController');
 	debug.log('module loaded');
@@ -6,6 +6,8 @@ define('mainView',function(debug,navigation) {
 	var naviBackButton;
 	// all elements, which switch 
 	var actionBarSwitches = [];
+	var showVideo;
+
 
 	/**
 	* Event Listener for the Back Button
@@ -13,6 +15,8 @@ define('mainView',function(debug,navigation) {
 	*/
 	var navigationGoBackEvent = function(event) {
 		event.preventDefault();
+		if (showVideo)
+			return;
 		navigation.previousView();
 	};
 
@@ -30,9 +34,19 @@ define('mainView',function(debug,navigation) {
 
 
 
-
-
-
+	/**
+	*	Requirement of MME3
+	*	Setting the value of showVideo, so we could handle,
+	*	that the back function won't switch back to the list
+	*/
+	eventHandler.addEventListener(eventHandler.customEvent('video','stop'),function() {
+		showVideo = false;
+		console.log('video removed')
+	});
+	eventHandler.addEventListener(eventHandler.customEvent('video','start'),function() {
+		console.log('show a video')
+		showVideo = true;
+	});
 
 
 

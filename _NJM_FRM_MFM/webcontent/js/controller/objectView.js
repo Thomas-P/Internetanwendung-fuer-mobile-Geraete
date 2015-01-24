@@ -112,8 +112,6 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 			}.bind(this));
 		}
 
-		button = document.getElementById('deleteObjectAction');
-		deleteObjectAction(button);
 		button = document.getElementById('deleteObjectButton');
 		deleteObjectAction(button);
 
@@ -139,11 +137,10 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 				description = form.description.value;
 			}
 			var object = {
-				'title' : title,
-				'src'	: src,
-				'description'	: description
+				'title' : title || '',
+				'src'	: src || '',
+				'description'	: description || ''
 			}
-			console.log(object);
 			if (_objectData && _objectData._id) {
 				object._id = _objectData._id;
 				crud.updateObject(_objectData._id,object,function(err,data) {

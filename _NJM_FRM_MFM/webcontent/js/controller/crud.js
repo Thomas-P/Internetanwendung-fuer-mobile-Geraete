@@ -13,7 +13,7 @@ define('crud',function(debug, xhr, eventHandler) {
 			if (callback)
 				callback(err,data);
 			if (err)
-				return
+				return;
 			var methodResult
 			switch (String(method).toUpperCase()) {
 				case 'POST': 	methodResult = 'create'; break;
@@ -21,7 +21,10 @@ define('crud',function(debug, xhr, eventHandler) {
 				case 'PUT': 	methodResult = 'update'; break;
 				case 'DELETE': 	methodResult = 'delete'; break;
 			}
-			var event = new eventHandler.customEvent( 'crud', methodResult, target, data)
+			var oldId = uri.split('/');
+			oldId = oldId[oldId.length-1];
+			// if objects are removed, than return old data to handle _id or title
+			var event = new eventHandler.customEvent( 'crud', methodResult, target, methodResult == 'delete' ? [{_id : oldId}] : data)
 			eventHandler.notifyListeners(event);
 		});
 	}

@@ -37,8 +37,13 @@
 	text-align: justify;
 }
 .object-list .object-id {
+	margin-top: 10px;
 	font-size: 0.6em;
 	color: #999;
+}
+.object-list .object-description {
+	white-space: pre-line;
+	height: auto;
 }
 /**
 * FRM2 (3) do not display löschen
