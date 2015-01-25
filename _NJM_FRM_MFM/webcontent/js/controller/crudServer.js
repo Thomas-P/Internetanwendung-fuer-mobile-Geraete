@@ -1,10 +1,13 @@
 define('crudServer',function(debug, xhr, eventHandler) {
 
-	var apiLink = 'api';
+	var apiLink = '/api';
 
 	debug = debug.createConsole('controller/crudServer');
 	debug.log('module loaded');
 	var _eventHandling = true
+	var _eventsForStart = []
+	var _isStarted = false
+	var _restData = {}
 
 	function crudControl(method, uri, data, callback, target) {
 		xhr(uri, {
@@ -165,6 +168,28 @@ define('crudServer',function(debug, xhr, eventHandler) {
 	operations.enableEventHandler = function() {
 		_eventHandling = true
 	}
+
+	/**
+	* dirty onStartHandler
+	*/
+	operations.onStart = function(callback) {
+		if (_isStarted)
+			return callback(true)
+		_eventsForStart.push(callback)
+	}
+
+	xhr(apiLink,{},function(err,data) {
+		if (err)
+			return;
+		_restData = data
+		_isStarted = true;
+		var backup = _eventsForStart;
+		_eventsForStart = []
+		backup.forEach(function(callback) {
+			if (callback)
+				callback(true)
+		})
+	})
 
 	return operations;
 

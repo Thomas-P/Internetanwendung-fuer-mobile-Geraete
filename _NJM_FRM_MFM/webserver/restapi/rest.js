@@ -297,6 +297,7 @@ function createServer (apiLink,options) {
 		// Decode each component
 		var urlPath = decodeURIComponent(urlData.pathname).split('/');
 		urlPath = removeEmptyArrayItems(urlPath);
+
 		// check api link against reqLink
 		for (var i = 0, len = apiLinkArray.length; i < len; i ++) {
 			if (apiLinkArray[i] == urlPath[0])
@@ -304,7 +305,21 @@ function createServer (apiLink,options) {
 			else 
 				return returnError(res,400,'API link invalid');
 		}
-
+		if ( 0 == urlPath.length ) {
+			// call to api
+			result = {
+				'name' : 'REST-API',
+				'version' : '1.0',
+				'collections' : collections,
+				'primaryKey' : primaryKey
+			}
+			res.writeHead(200, {
+					'Content-Type' : 'application/json'
+				})
+			res.write(JSON.stringify(result));
+			res.end();
+			return
+		}
 		// get the Collection
 		collection = urlPath.shift()
 		if (collections.indexOf(collection) === -1) {

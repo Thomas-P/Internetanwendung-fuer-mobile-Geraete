@@ -15,6 +15,8 @@ define('crudLokal',function(debug, xhr, eventHandler) {
 	}
 
 	var _storeOperations = []
+	var _eventsForStart = []
+	var _isStarted = false
 
 	// create an Request for the Database, with an closure
 	;(function() {
@@ -30,6 +32,13 @@ define('crudLokal',function(debug, xhr, eventHandler) {
 				crudControl.apply(this,args)
 			})
 			// and finish
+			_isStarted = true
+			backup = _eventsForStart
+			_eventsForStart = []
+			backup.forEach(function(callback) {
+				if (callback)
+					callback(true)
+			})
 		}
 		var errorHandler = function() {
 			console.error('could not open indexDB');
@@ -392,6 +401,15 @@ define('crudLokal',function(debug, xhr, eventHandler) {
 
 	operations.enableEventHandler = function() {
 		_eventHandling = true
+	}
+
+	/**
+	* dirty onStartHandler
+	*/
+	operations.onStart = function(callback) {
+		if (_isStarted)
+			return callback(true)
+		_eventsForStart.push(callback)
 	}
 
 	return operations;
