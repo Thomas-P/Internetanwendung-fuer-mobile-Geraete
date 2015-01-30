@@ -114,6 +114,24 @@ function createServer (apiLink,options) {
 			if (err) 
 				return callback(err) // end callback
 
+			// extract an set primary key
+			var primaryKeyName;
+			var id;
+			
+			if (!primaryKey[collection] || primaryKey[collection] == '_id') {
+				
+				id = data._id;
+				data._id = new ObjectId(data._id);
+
+			} else {
+
+				primaryKeyName = primaryKey[collection];
+				id = data[primaryKeyName];
+
+			}
+
+			parameter.id = id;
+
 			database[collection].save(data, function(err, saved) {
 				// return an error
 				if (err || !saved) 
@@ -122,6 +140,9 @@ function createServer (apiLink,options) {
 					errorMessage: 'Could\'nt save the item.'
 				}) // end callback
 				// return saved
+				if (1 == saved || 0== saved)
+					return
+						readItem(parameter,callback)
 				callback(null, [saved]);
 			}) // end database[...].save
 		}) // end getData
@@ -292,6 +313,20 @@ function createServer (apiLink,options) {
 
 	// inner function that remember the api link and config
 	function run(req,res) {
+
+		// do handle multipart
+		var contentType = String(req.headers["content-type"]);
+		if ( contentType.startsWith('multipart/form-data') )
+			return handleMultipart(req,function(err,result) {
+				if (err) 
+					return returnError(res,err.errorNumber || 500, err.errorMessage || 'Something went wrong.');
+				res.writeHead(200, {
+					'Content-Type' : 'application/json'
+				})
+				res.write(JSON.stringify(result));
+				res.end();
+			})
+
 		// extract the request path
 		var urlData = url.parse(req.url);
 		// Decode each component
@@ -431,8 +466,9 @@ function handleMultipart(request,callback) {
     	}
     	var id = file.path.split('_')
     	id = id[id.length-1]
+    	var ext = file.name.split('.');
     	// NEW Filename
-    	var fileName = id + '_' + file.name
+    	var fileName = id + '.' + ext[ext.length-1]
     	// set the right filename -> uploaddir
     	file.path = fileDir + fileName
     	// set a correct value for this file with the given name
@@ -462,7 +498,7 @@ function handleMultipart(request,callback) {
 			data[key] = fields[key]
 		}
 
-		return callback(null,data) // end callback
+		return callback(null,[data]) // end callback
 
 	});
 
@@ -471,9 +507,6 @@ function handleMultipart(request,callback) {
 
 function getData(request,callback) {
 	var contentType = request.headers["content-type"];
-	// do handle multipart
-	if ( contentType.startsWith('multipart/form-data') )
-		return handleMultipart(request,callback)
 	// otherwise requires application/json	
 	if (contentType == null || contentType.indexOf('application/json') == -1) 
 		return callback({

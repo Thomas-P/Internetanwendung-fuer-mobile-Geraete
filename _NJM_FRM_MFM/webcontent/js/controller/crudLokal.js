@@ -275,11 +275,15 @@ define('crudLokal',function(debug, xhr, eventHandler) {
 				newItems.push(element)
 			})
 
-			data.contentItems = contentItems = newItems
-			transactionData['data'] = data
-			transactionData.noEvent = false
-			// save it
-			crudControl('PUT',transactionData, callback)
+			data.contentItems = null;
+			crudControl('PUT',transactionData, function() {
+				data.contentItems = newItems
+				transactionData['data'] = data
+				transactionData.noEvent = false
+				// save it
+				crudControl('PUT',transactionData, callback)
+
+			})
 		})
 	};
 
@@ -351,40 +355,6 @@ define('crudLokal',function(debug, xhr, eventHandler) {
 		crudControl('GET', transactionData, callback);
 	};
 
-
-	/**
-	*	add an existing object to topicId or create an object and add them to topicId
-	*	@param topicId the topicId of the topic object
-	*	@param obj an object reference for a content_item
-	*   @param callback fires when done
-	*/
-	operations.addObject = function(topicId, obj, callback) {
-		/**
-		*	test if an object exists
-		*	if, then add it to topicId
-		*	if not, create them and add it to topicId
-		*/
-		var getObjectCallback = function(err,object) {
-			if (!err)
-				return addContentItem(topicId,obj,callback);
-			// create the object
-			operations.createObject(obj,function(err,object) {
-				if (err)
-					return callback(err);
-				operations.addContentItem(topicId,object,callback);
-			})
-		}
-
-		if (!obj)
-			return;
-
-		// has an id
-		if (obj._id) {
-			// 
-			return operations.readObject(obj_id,getObjectCallback);
-		}
-
-	}
 
 	operations.crudStatus = function(callback) {
 		if (_databaseReady)

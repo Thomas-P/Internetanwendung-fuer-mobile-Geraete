@@ -8,6 +8,7 @@ define('crudServer',function(debug, xhr, eventHandler, helper) {
 	var _eventsForStart = []
 	var _isStarted = false
 	var _restData = {}
+	var createEvents = true
 
 	function crudControl(method, uri, data, callback, target) {
 		xhr(uri, {
@@ -27,6 +28,8 @@ define('crudServer',function(debug, xhr, eventHandler, helper) {
 			}
 			var oldId = uri.split('/');
 			oldId = oldId[oldId.length-1];
+			if (!createEvents)
+				return
 			// if objects are removed, than return old data to handle _id or title
 			var event = new eventHandler.customEvent( 'crud', methodResult, target, methodResult == 'delete' ? [{_id : oldId}] : data)
 			eventHandler.notifyListeners(event);
@@ -123,39 +126,6 @@ define('crudServer',function(debug, xhr, eventHandler, helper) {
 		crudControl("GET", apiLink + '/object/', null, callback,'objectList');
 	};
 
-	/**
-	*	add an existing object to topicId or create an object and add them to topicId
-	*	@param topicId the topicId of the topic object
-	*	@param obj an object reference for a content_item
-	*   @param callback fires when done
-	*/
-	operations.addObject = function(topicId, obj, callback) {
-		/**
-		*	test if an object exists
-		*	if, then add it to topicId
-		*	if not, create them and add it to topicId
-		*/
-		var getObjectCallback = function(err,object) {
-			if (!err)
-				return addContentItem(topicId,obj,callback);
-			// create the object
-			operations.createObject(obj,function(err,object) {
-				if (err)
-					return callback(err);
-				operations.addContentItem(topicId,object,callback);
-			})
-		}
-
-		if (!obj)
-			return;
-
-		// has an id
-		if (obj._id) {
-			// 
-			return operations.readObject(obj_id,getObjectCallback);
-		}
-
-	}
 
 	operations.crudStatus = function(callback) {
 		xhr(apiLink,callback)
@@ -174,21 +144,23 @@ define('crudServer',function(debug, xhr, eventHandler, helper) {
 	*/
 	operations.onStart = function(callback) {
 		if (_isStarted)
-			return callback(true)
+			return callback(!!_restData)
 		_eventsForStart.push(callback)
+	}
+
+	operations.setEvents = function(doEvents) {
+		createEvents = !!doEvents
 	}
 
 	helper.domReady(function() {
 		xhr(apiLink,{},function(err,data) {
-			if (err)
-				return;
-			_restData = data
 			_isStarted = true;
+			_restData = data
 			var backup = _eventsForStart;
 			_eventsForStart = []
 			backup.forEach(function(callback) {
 				if (callback)
-					callback(true)
+					callback(!!_restData)
 			})
 		})
 	})

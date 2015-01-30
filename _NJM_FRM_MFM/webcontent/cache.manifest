@@ -3,6 +3,7 @@ CACHE MANIFEST
 # Caching all html
 topicview.html
 titlelist.html
+
 # Javascript
 js/lib/require.js
 js/lib/debug.js
@@ -21,6 +22,12 @@ js/controller/objectView.js
 js/controller/editView.js
 js/controller/allObject.js
 js/controller/mme3.js
+js/lib/require.js
+js/lib/debug.js
+js/lib/xhr.js
+js/lib/helper.js
+js/controller/titleListView.js
+
 # CSS
 css/navigation.css
 css/topicview.css
@@ -31,5 +38,17 @@ css/objekt.css
 css/objektListe.css
 css/mme3.css
 css/crud.css
+css/titlelist.css
+css/navigation.css
+
+#JSON
+data/titlelist.json
+
+FALLBACK:
+topicview.html /topicview.html
+
 NETWORK:
-api/
+api
+*
+
+

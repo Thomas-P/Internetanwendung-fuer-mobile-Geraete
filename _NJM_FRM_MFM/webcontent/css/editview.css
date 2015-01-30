@@ -99,3 +99,9 @@ fieldset.radiogroup * {
 fieldset.radiogroup input[type="radio"]:checked+label { 
 	font-weight: bold; 
 } 
+
+#create_a_new_object {
+	font-weight: bold;
+	float: right;
+	cursor: pointer;
+}
