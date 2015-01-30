@@ -50,6 +50,12 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 	 	image.dataset.backupUrl = objData.src_bak || void 0;
 	 	image.alt = objData.title || 'an image';
 	 	image.src = objData.src || '';
+	 	image.onerror = function() {
+	 		this.style.display = 'none'
+	 	}
+	 	image.onload = function() {
+	 		this.style.display = 'block'
+	 	}
 	 	image.dataset.description = objData.description || 'Keine Beschreibung angegeben.';
 	 	element.style.visibility = 'visible';
 
@@ -68,7 +74,7 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 			button.addEventListener('click', function(event) {
 				event.preventDefault();
 				// FRM2 (10) only if object exists
-				if (!_objectData._id) {
+				if (!_objectData || !_objectData._id) {
 					return alert('No object!');
 				}
 				if (confirm('Delete these object?')) {
@@ -77,6 +83,7 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 						if (err) 
 							return alert('Could not delete object');
 						var tViewObject = topicView.getTopicView();
+						/* NJM3 (4) */
 						crud.removeContentItem(tViewObject.title,'objekt',function(err,data) {
 							_objectData = null;
 							showObject();
@@ -110,9 +117,9 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 			// change
 			button.addEventListener('click',function(event) {
 				event.preventDefault();
-				if (!_objectData)
+				if (!_objectData || !_objectData._id)
 					return alert('No Object!');
-				crud.updateObject(_objectData,function(err,data) {
+				crud.updateObject(_objectData._id,_objectData,function(err,data) {
 					if (err)
 						alert('The object element could not be updated!');
 					_objectData = data[0];
@@ -148,6 +155,14 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 			} // end for
 			if (objectConnector) {
 				crud.readObject(objectConnector.objectId,function(err,data) {
+					// could not read the topic
+					if (err) {
+						console.error('Object for topic view does not exists anymore.')
+						crud.removeContentItem(_topicView.title,'objekt',function(err,data) {
+							// do something?
+							console.log('remove them')
+						})
+					}
 					// store object 
 					_objectData = data[0];
 					showObject() // show object
@@ -171,6 +186,10 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 	// initialize when dom Ready
 	helper.domReady(addEvents);
 
+	return {
+		createObject : createObject,
+		showObject: showObject
+	}
 	
 
 });

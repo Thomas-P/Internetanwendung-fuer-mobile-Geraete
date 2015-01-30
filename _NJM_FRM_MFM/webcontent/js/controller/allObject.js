@@ -1,4 +1,4 @@
-define('allObjectController',function(debug,helper,eventHandler,crud) {
+define('allObjectController',function(debug,helper,eventHandler,crud,editView) {
 
 	debug = debug.createConsole('controller/allObject');
 	debug.log('module loaded');
@@ -6,6 +6,8 @@ define('allObjectController',function(debug,helper,eventHandler,crud) {
 	var objectList = [];
 	var listNode = null;
 	var listStart = null;
+	var _topicView;
+	var _objectEditMode;
 
 	/**
 	*	create an object id for all <tr>s
@@ -27,17 +29,17 @@ define('allObjectController',function(debug,helper,eventHandler,crud) {
 		node.id = createObjectId(data._id);
 		var tmpElement;
 		// object id
-		tmpElement = node.querySelector('.object-id');
+		tmpElement = node.querySelector('.object-list-id');
 		if (tmpElement)
 			tmpElement.textContent = '#' + data._id;
 		// object title
-		tmpElement = node.querySelector('.object-title');
+		tmpElement = node.querySelector('.object-list-title span');
 		if (tmpElement) {
 			tmpElement.textContent = data.title || '';
 			tmpElement.style.setProperty('display', data.title ? 'block' : 'none');
 		}
 		// object description
-		tmpElement = node.querySelector('.object-description');
+		tmpElement = node.querySelector('.object-list-description span');
 		if (tmpElement) {
 			tmpElement.textContent = data.description || '';
 			tmpElement.style.setProperty('display', data.description ? 'block' : 'none');
@@ -46,7 +48,6 @@ define('allObjectController',function(debug,helper,eventHandler,crud) {
 		tmpElement = node.querySelector('.object-img-thumbnail');
 		if (tmpElement) {
 			tmpElement.src = data.src || '';
-			tmpElement.style.setProperty('display', data.description ? 'block' : 'none');
 		}
 	}
 	/**
@@ -73,6 +74,21 @@ define('allObjectController',function(debug,helper,eventHandler,crud) {
 				})
 				img.style.setProperty('display','none');
 			} // end add event listener to img. no image not visible
+			var zuweisen = findNode.querySelector('.object-list-addToTopicView');
+			if (zuweisen) {
+				/* MFM2 (12) */
+				zuweisen.addEventListener('click',function(event) {
+					event.preventDefault()
+					event.stopPropagation()
+					if (3 != _objectEditMode)
+						return alert('Choose get by list from the object')
+					if (_topicView && _topicView.title) {
+						// send an event to editView
+						eventHandler.notifyListeners(eventHandler.customEvent('allObject','getObject','',data));
+						
+					}
+				})
+			}
 			changeNode(findNode, data);
 			if (listStart.children[0]) {
 				listStart.insertBefore(findNode, listStart.children[0]);
@@ -100,7 +116,8 @@ define('allObjectController',function(debug,helper,eventHandler,crud) {
 	*	prepares list for insert
 	*/
 	function prepareList() {
-		listNode = document.querySelector('.object-list tr');
+		// find td of first entry, make it to a template
+		listNode = document.querySelector('.object-list tbody tr');
 		if (listNode && listNode.parentElement) {
 			listStart = listNode.parentElement;
 			listNode.parentElement.removeChild(listNode);
@@ -130,6 +147,20 @@ define('allObjectController',function(debug,helper,eventHandler,crud) {
 
 	eventHandler.addEventListener(eventHandler.customEvent("crud", "create|read|update", "object"),handleSetObject);
 	eventHandler.addEventListener(eventHandler.customEvent("crud", "delete", "object"),handleDeleteObject);
+
+
+	eventHandler.addEventListener(eventHandler.customEvent('editView','setInputType',''),function(event) {
+		_objectEditMode = event.data
+	});
+
+	function handleTopicView(event) {
+		if (event.type == 'delete')
+			_topicView = null
+		else
+			_topicView = event.data[0]
+	}
+
+	eventHandler.addEventListener(eventHandler.customEvent("crud", "create|read|update|delete", "topicView"),handleTopicView);
 
 	function initialize() {
 		// get the template Element for the list

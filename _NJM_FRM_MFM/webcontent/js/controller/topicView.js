@@ -122,7 +122,7 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 				return;
 			} // end error or no data
 			// set topicView
-			topicView = data[0] || {};
+			topicView = data[0] || null;
 			notifyTopicViewEvents('read');
 		}) // end crud.readTopicView
 	}

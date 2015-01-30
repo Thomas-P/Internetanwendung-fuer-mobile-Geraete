@@ -55,7 +55,8 @@
 	<header>
 		<nav>
 			<!-- bind an event listener to this, see mainView -->
-			<a href="#" id="navigation_button" class="navigation-back detail-back">&lt;&lt; Zurück</a> <span class="crud-control"><input type="checkbox" checked name="crudServer" id="crudServer" disabled> REST, <input type="checkbox" checked name="crudLocal" id="crudLocal" disabled> Lokal <button id="crudStart" disabled>Start</button></span>
+			<a href="#" id="navigation_button" class="navigation-back detail-back">&lt;&lt; Zurück</a> 
+			<span class="crud-control"><input type="checkbox" checked name="crudServer" id="crudServer" disabled><span id="crudServerShow"> REST</span> <input type="checkbox" checked name="crudLocal" id="crudLocal" disabled><span id="crudLocalShow"> Lokal </span><button id="crudStart" disabled>Start</button></span>
 		</nav>
 	</header>
 	<article id="mainview">
@@ -200,13 +201,15 @@
 					<input type="radio" name="contentMode" value="fileupload" id="object_upload_via_upload"/>
 					<label for="object_upload_via_upload">Datei hochladen</label>
 					<input type="radio" name="contentMode" value="fileupload_formdata" id="object_choose_by_list"/>
-					<label for="object_choose_by_list">Objekt aus Liste ausw&aumlhlen</label>
+					<label for="object_choose_by_list">Objekt aus Liste ausw&auml;hlen</label>
+					<span id="create_a_new_object">Neues Objekt erstellen?</span>
 				</fieldset>
 				<form name="form_objekt" action="/api/object/" method="post" onsubmit="return confirm('submit?')" enctype="multipart/form-data">
+					<p>Objekt-ID: <span id="objekt_id_for_form_upload">Wird automatisch vergeben.</span><input type="hidden" value="" name="_id" /></p>
 					<input name="title" placeholder="Titel" required="required" autofocus="autofocus" autocomplete="off"/>
 					<img src="" class="object-img-thumbnail object-edit-img" id="pictureprev_object">
 					
-					<input type="url" name="src" class="object-img" placeholder="Bild" >
+					<input type="url" name="src" class="object-img" placeholder="Bild" required="required" >
 
 					<textarea name="description" class="object-description" placeholder="Beschreibung"></textarea>
 					<input type="submit" value="Erzeugen" name="submit" id="addOrUpdateObjectButton" />
@@ -221,14 +224,25 @@
 			<h2><a href="#tab_objektList">Alle Objekte</a></h2>
 			<div class="scrollview">
 				<table class="object-list">
-					<tr id="{object_id}">
-						<td class="object-attr">
-							<span class="object-id">#{object_id}</span>
-							<span class="object-title">#{object_title}</span>
-							<span class="object-description">#{object_description}</span>
-						</td>
-						<td class="object-image-td"><img src="#" alt="{object_title}" class="object-img-thumbnail" /></td>
-					</tr>
+					<thead>
+						<tr>
+							<th>Objekt ID</th><th>Titel</th><th>Beschreibung</th><th>Bild</th><th>&amp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="{object_id}">
+							<td>
+								<p class="object-list-id">#{object_id}</p>
+							</td>
+							<td class="object-list-title">
+								<span>{object_title}</span>
+							</td>
+							<td class="object-list-description"><span>#{object_description}</span></td>
+							<td class="object-list-image"><img src="#" alt="{object_title}" class="object-img-thumbnail" /></td>
+							<td><p><a href="#" class="object-list-addToTopicView">Zuweisen</a></p></td>
+						</tr>
+
+					</tbody>
 				</table>
 <!-- 
 				<p>
