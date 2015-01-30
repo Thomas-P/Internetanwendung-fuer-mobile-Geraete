@@ -41,6 +41,9 @@ css/crud.css
 css/titlelist.css
 css/navigation.css
 
+#IMG
+css/img/Kringel01.png
+
 #JSON
 data/titlelist.json
 
