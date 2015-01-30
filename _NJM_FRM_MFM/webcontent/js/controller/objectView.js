@@ -126,42 +126,7 @@ define('objectView',function(debug,crud,helper,eventHandler,topicView) {
 		button = document.getElementById('deleteObjectAction');
 		deleteObjectAction(button);
 
-		/**
-		* FRM2 (2)
-		*/
-		var objektForm = document.querySelector('form[name=form_objekt]');
-		objektForm.addEventListener('submit',function(event) {
-			console.log('FRM2 (2) Modifizieren und Erzeugen via submit');
-			event.stopPropagation();
-			event.preventDefault();
-			var form = document.forms.form_objekt || null;
-			var title, src, description;
-			if (form.title && form.title.value) {
-				title = form.title.value;
-			} else {
-				return alert('object requires a title.');
-			}
-			if (form.src && form.src.value) {
-				src = form.src.value;
-			}
-			if (form.description && form.description.value) {
-				description = form.description.value;
-			}
-			var object = {
-				'title' : title || '',
-				'src'	: src || '',
-				'description'	: description || ''
-			}
-			if (_objectData && _objectData._id) {
-				object._id = _objectData._id;
-				crud.updateObject(_objectData._id,object,function(err,data) {
-					_objectData = data[0] || null;
-				});
-			} else {
-				createObject(object);
-			}
-			return false;
-		})
+		// moving formObject to editView
 	}
 
 

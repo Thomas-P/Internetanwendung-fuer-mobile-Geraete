@@ -95,3 +95,7 @@ fieldset.radiogroup * {
     padding-top: 0px;
     padding-bottom: 0px;
 }
+
+fieldset.radiogroup input[type="radio"]:checked+label { 
+	font-weight: bold; 
+} 

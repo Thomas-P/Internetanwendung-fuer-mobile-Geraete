@@ -7,7 +7,6 @@ var url = require('url');
 var fs = require('fs');
 var sys = require('sys');
 var domain = require('domain');
-
 //var utils = require("./njsimpl/njsutils");
 //var http2mdb = require("./njsimpl/http2mdb");
 

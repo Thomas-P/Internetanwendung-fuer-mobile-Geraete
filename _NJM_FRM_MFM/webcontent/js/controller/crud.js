@@ -11,6 +11,7 @@ define('crud',function(debug, crudServer, crudLokal, eventHandler, helper) {
 	var activeCrud = false
 
 	// Storage if a api not ready
+	var _crudImplementationStart 
 	var storeQueue = []
 
 	/**
@@ -29,7 +30,7 @@ define('crud',function(debug, crudServer, crudLokal, eventHandler, helper) {
 	*/
 	function callCrudOperation(operation,argumentList) {
 		// Crud operations not active
-		if (!activeLocal && !activeServer && !activeCrud) {
+		if (!_crudImplementationStart) {
 			console.log('Store Operations, because Crud is not ready',operation,argumentList)
 			// store in storeQueue
 			return storeQueue.push(arguments)
@@ -94,7 +95,6 @@ define('crud',function(debug, crudServer, crudLokal, eventHandler, helper) {
 	}
 
 	function setMode (event) {
-		event.target.removeEventListener('click',setMode)
 		event.preventDefault();
 		var crudControl = document.querySelector('.crud-control')
 		var crudElement = document.getElementById('crudLocal');
@@ -105,13 +105,18 @@ define('crud',function(debug, crudServer, crudLokal, eventHandler, helper) {
 		if (crudElement && !crudElement.disabled) {
 			useCrudServer = !!crudElement.checked
 		}
-		if (crudControl && crudControl.parentElement) {
-			crudControl.parentElement.removeChild(crudControl)
-		}
 		// set against the activation 
 		useCrudServer = useCrudServer && activeServer;
 		useCrudLocal = useCrudLocal && activeLocal;
+		if (!useCrudLocal && !useCrudServer) {
+			return alert('No Implementation set')
+		}
+		event.target.removeEventListener('click',setMode)
+		if (crudControl && crudControl.parentElement) {
+			crudControl.parentElement.removeChild(crudControl)
+		}
 		// clear Queue if them exists
+		_crudImplementationStart = true
 		callCrudOperation();
 	}
 

@@ -41,7 +41,7 @@
 		}, {
 			"render_container": "right",
 			"type": "medienverweise",
-			"title": "Filme und Audio",
+			"title": "Film? Hier?",
 			"content": [
 				{
 					"mediatype": "video/ogg",
@@ -56,7 +56,7 @@
 		}, {
 			"render_container": "left",
 			"type": "medienverweise",
-			"title": "Filme und Audio",
+			"title": "Titel unbekannt",
 			"content": [
 				{
 					"mediatype": "video/ogg",

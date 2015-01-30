@@ -4,6 +4,14 @@ var mongojs  = require('mongojs');
 var ObjectId = mongojs.ObjectId;
 var JSONStream = require('JSONStream');
 var domain = require('domain');
+var formidable = require('formidable')
+var fs = require('fs')
+
+if (typeof String.prototype.startsWith != 'function') {
+	String.prototype.startsWith = function (str){
+		return this.slice(0, str.length) == str;
+	};
+}
 
 /**
 *	
@@ -100,15 +108,12 @@ function createServer (apiLink,options) {
 	var createItem = function(parameter,callback) {
 
 		var req = parameter.req;
-		var contentType = req.headers["content-type"];
-		if (contentType == null || contentType.indexOf('application/json') == -1) 
-			return callback({
-				errorNumber: 406,
-				errorMessage: 'Content type must be application/json'
-			}) // end callback
-		// end if [check content type]		
+		// @refactor content-type check moved to getData
 
 		getData(req,function(err,data) {
+			if (err) 
+				return callback(err) // end callback
+
 			database[collection].save(data, function(err, saved) {
 				// return an error
 				if (err || !saved) 
@@ -131,13 +136,6 @@ function createServer (apiLink,options) {
 	var updateItem = function(parameter, callback) {
 
 		var req = parameter.req;
-		var contentType = req.headers["content-type"];
-		if (contentType == null || contentType.indexOf('application/json') == -1) 
-			return callback({
-				errorNumber: 406,
-				errorMessage: 'Content type must be application/json'
-			}) // end callback
-		// end if [check content type]		
 
 		if (void 0 == (parameter.id || void 0) ) 
 			return callback({
@@ -169,6 +167,8 @@ function createServer (apiLink,options) {
 		searchObject[primaryKeyName] = id;
 
 		getData(req,function(err,data) {
+			if (err) 
+				return callback(err) // end callback
 
 			// update a sub item of these item
 			if (data['_id']) 
@@ -413,8 +413,75 @@ function returnError(res,errorNumber,errorString) {
 	return false;
 }
 
+function handleMultipart(request,callback) {
+	/**
+	*	using dirty hard coded links
+	*/
+	var form = new formidable.IncomingForm();
+
+	fileDir = process.cwd() + '/../webcontent/upload/'
+	var data = { }
+	var parseError 
+
+	form.on('fileBegin', function(name, file) {
+    	// check images
+    	if (!file || !file.type || !file.type.startsWith || !file.type.startsWith('image')) {
+    		parseError = true
+    		return
+    	}
+    	var id = file.path.split('_')
+    	id = id[id.length-1]
+    	// NEW Filename
+    	var fileName = id + '_' + file.name
+    	// set the right filename -> uploaddir
+    	file.path = fileDir + fileName
+    	// set a correct value for this file with the given name
+    	data[name] = '/upload/' +fileName
+    })
+
+	form.on('file', function(name, file) {
+		// remove a file, which is not an image
+		if (!file || !file.type || !file.type.startsWith || !file.type.startsWith('image')){
+			parseError = true
+			fs.unlinkSync(file.path);
+    	}
+	});		
+
+
+	form.parse(request, function(err, fields, files) {
+		if (err || parseError) {
+			return callback({
+				errorNumber: 417,
+				errorMessage: 'You could only upload images'
+			}) // end callback			
+		}
+
+		for (var key in fields) {
+			if (data[key])
+				continue
+			data[key] = fields[key]
+		}
+
+		return callback(null,data) // end callback
+
+	});
+
+}
+
 
 function getData(request,callback) {
+	var contentType = request.headers["content-type"];
+	// do handle multipart
+	if ( contentType.startsWith('multipart/form-data') )
+		return handleMultipart(request,callback)
+	// otherwise requires application/json	
+	if (contentType == null || contentType.indexOf('application/json') == -1) 
+		return callback({
+			errorNumber: 406,
+			errorMessage: 'Content type must be application/json'
+		}) // end callback
+	// end if [check content type]		
+
 	var allData = [];
 	request.on('data',function(dataChunk) {
 		allData.push(dataChunk);

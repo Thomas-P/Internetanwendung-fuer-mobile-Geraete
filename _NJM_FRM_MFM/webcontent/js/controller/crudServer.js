@@ -1,4 +1,4 @@
-define('crudServer',function(debug, xhr, eventHandler) {
+define('crudServer',function(debug, xhr, eventHandler, helper) {
 
 	var apiLink = '/api';
 
@@ -178,16 +178,18 @@ define('crudServer',function(debug, xhr, eventHandler) {
 		_eventsForStart.push(callback)
 	}
 
-	xhr(apiLink,{},function(err,data) {
-		if (err)
-			return;
-		_restData = data
-		_isStarted = true;
-		var backup = _eventsForStart;
-		_eventsForStart = []
-		backup.forEach(function(callback) {
-			if (callback)
-				callback(true)
+	helper.domReady(function() {
+		xhr(apiLink,{},function(err,data) {
+			if (err)
+				return;
+			_restData = data
+			_isStarted = true;
+			var backup = _eventsForStart;
+			_eventsForStart = []
+			backup.forEach(function(callback) {
+				if (callback)
+					callback(true)
+			})
 		})
 	})
 

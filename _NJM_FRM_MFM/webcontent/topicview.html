@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--<html manifest="cache.manifest">-->
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">		
@@ -193,11 +194,21 @@
 			<h2><a href="#tab_objekt">Objekt</a></h2>
 			<div class="scrollview">
 			<p>
-				<form name="form_objekt" action="/api/object/" method="post" onsubmit="return confirm('submit?')">
-				<input name="title" placeholder="Titel" required="required" autofocus="autofocus" autocomplete="off"/>
-				<img src="" class="object-img-thumbnail object-edit-img" id="pictureprev_object">
-				<input type="text" name="src" class="object-img" placeholder="Bild">
-				<textarea name="description" class="object-description" placeholder="Beschreibung"></textarea>
+				<fieldset class="radiogroup">
+					<input type="radio" name="contentMode" value="href" id="object_upload_via_url"/>
+					<label for="object_upload_via_url">Url eingeben</label>
+					<input type="radio" name="contentMode" value="fileupload" id="object_upload_via_upload"/>
+					<label for="object_upload_via_upload">Datei hochladen</label>
+					<input type="radio" name="contentMode" value="fileupload_formdata" id="object_choose_by_list"/>
+					<label for="object_choose_by_list">Objekt aus Liste ausw&aumlhlen</label>
+				</fieldset>
+				<form name="form_objekt" action="/api/object/" method="post" onsubmit="return confirm('submit?')" enctype="multipart/form-data">
+					<input name="title" placeholder="Titel" required="required" autofocus="autofocus" autocomplete="off"/>
+					<img src="" class="object-img-thumbnail object-edit-img" id="pictureprev_object">
+					
+					<input type="url" name="src" class="object-img" placeholder="Bild" >
+
+					<textarea name="description" class="object-description" placeholder="Beschreibung"></textarea>
 					<input type="submit" value="Erzeugen" name="submit" id="addOrUpdateObjectButton" />
 				</form>
 				<button id="deleteObjectButton">

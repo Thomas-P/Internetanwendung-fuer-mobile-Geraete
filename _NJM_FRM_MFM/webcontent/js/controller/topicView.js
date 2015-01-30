@@ -47,6 +47,8 @@ define('topicView',function(debug,crud,helper,eventHandler) {
 			// change
 			button.addEventListener('click',function(event) {
 				event.preventDefault();
+				if (!topicView)
+					return alert('No topic view set')
 				crud.updateTopicView(topicView.title || '',topicView,function(err,data) {
 					if (err)
 						alert('The topicview element could not be updated!');
