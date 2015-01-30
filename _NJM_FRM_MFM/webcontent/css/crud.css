@@ -1,0 +1,33 @@
+.crud-control input[type="checkbox"] {
+	margin: 0;
+	padding: 0 0 0 20px;
+	display: inline;
+	width: 20px;
+	height: 20px;
+	font-size: 30pt;
+}
+.crud-control {
+	color: #999;
+	float: right;
+	padding-right: 30px;
+	vertical-align: top;
+}
+
+.crud-control-set input {
+	visibility: hidden;
+}
+.crud-control-set span {
+	visibility: hidden;
+}
+.crud-control-set span.active {
+	font-weight: bold;
+	color: #00aa00;
+	visibility: visible;
+}
+.crud-control-set button {
+	display: none
+}
+
+body > header > nav {
+	background: #000
+}

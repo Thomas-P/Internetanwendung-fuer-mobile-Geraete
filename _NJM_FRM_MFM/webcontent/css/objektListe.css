@@ -1,0 +1,52 @@
+/*
+<tbody>
+	<tr id="{object_id}">
+		<td class="object-list-id">
+			#{object_id}
+		</td>
+		<td class="object-list-title">
+			{object_title}
+		</td>
+		<td class="object-list-description">
+			#{object_description}
+		</td>
+		<td class="object-list-image"><img src="#" alt="{object_title}" class="object-img-thumbnail" /></td>
+	</tr>
+
+</tbody>
+*/
+.object-list {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.object-list td {
+	vertical-align: top;
+	border-bottom: solid 1px #999; 
+	padding: 10px;
+	text-align: justify;
+}
+.object-list .object-list-image {
+	width: 220px;
+}
+.object-list .object-list-description {
+	white-space: pre-line;
+	height: auto;
+}
+.object-list p, .object-list span {
+	margin: 0;
+	padding: 0;
+	display: block;
+
+}
+/**
+* FRM2 (3) do not display löschen
+*/
+
+#deleteObjectButton {
+	display: none;
+}
+
+#pictureprev_object {
+	display: none;
+}

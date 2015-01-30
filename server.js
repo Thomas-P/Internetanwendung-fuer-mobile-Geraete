@@ -29,3 +29,4 @@ app.get('*',function(req,res,next) {
 });
 
 app.listen(1337);
+console.log('listen to port',1337)

@@ -1,0 +1,60 @@
+/** Beginn Objekt ***/
+#objekt {
+	margin: 0;
+	padding: 10px;
+	background: rgb(45,45,45);
+	max-width: 280px;
+	max-height: 280px;
+	visibility: hidden;
+}
+#objekt header {
+	height: 30px;
+	padding: 0 5px 0 0;
+	margin: 0;
+	color: rgb(128,128,128);
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-color: rgb(128,128,128);
+	display: block;
+	vertical-align: top;
+	background-color: inherit;
+}
+#objekt h2 {
+	margin: 0;
+	box-sizing: content-box;
+	color: rgb(128,128,128);
+	font-size: 20px;
+	display: inline-block;
+}
+#objekt img {
+	max-width: 255px;
+	max-height: 190px;
+	margin: 0;
+	padding: 0;
+}
+#objekt figure {
+	margin: 25px 15px 15px 15px;
+	padding: 0;
+	display: block;
+}
+#objekt figcaption {
+	display: none;
+}
+#objektKringel {
+	float: right;
+	height: 40px;
+	width: 40px;
+	display: inline-block;
+	background-image: url(img/Kringel01.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: contain;
+}
+/** Objekt Edit **/
+.object-img-thumbnail {
+	width: 200px;
+
+}
+.object-description {
+	height: 100px;
+}

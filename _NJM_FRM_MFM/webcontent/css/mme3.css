@@ -1,0 +1,34 @@
+#mainview {
+	opacity: 1.0;
+	transition: opacity 2s
+}
+
+#mainview.fade-out {
+	opacity: 0;
+	transition: opacity 2s
+}
+
+.video {
+	background: black;
+	height: 100%;
+	width: 100%;
+}
+#videoElement {
+	background: black;
+	margin: 0 auto;
+	display: block;
+	max-height: 100%;
+	max-width: 100%;
+}
+
+#mainview > .video {
+	display: none;
+}
+
+#mainview.show-video > .video {
+	display: block;
+}
+
+#mainview.show-video > div, #mainview.show-video > h1 {
+	display: none;
+}

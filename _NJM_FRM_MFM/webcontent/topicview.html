@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">		
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Topicview</title>
+	<link rel="stylesheet" href="css/navigation.css"/>
+	<link rel="stylesheet" href="css/topicview.css"/>
+	<link rel="stylesheet" href="css/editview.css"/>
+	<link rel="stylesheet" href="css/uiutils.css"/>
+	<link rel="stylesheet" href="css/css.css"/>
+	<link rel="stylesheet" href="css/objekt.css"/>
+	<link rel="stylesheet" href="css/objektListe.css"/>
+	<link rel="stylesheet" href="css/mme3.css"/>
+	<link rel="stylesheet" href="css/crud.css"/>
+
+	<script type="text/javascript" src="js/lib/require.js"></script>
+	<script type="text/javascript" src="js/lib/debug.js"></script>
+	<script type="text/javascript" src="js/lib/helper.js"></script>
+	<script type="text/javascript" src="js/lib/xhr.js"></script>
+	<script type="text/javascript" src="js/lib/eventHandler.js"></script>
+	<script type="text/javascript" src="js/lib/navigation.js"></script>
+	<script type="text/javascript" src="js/lib/longPress.js"></script>
+	<script type="text/javascript" src="js/lib/objectId.js"></script>
+
+
+	<script type="text/javascript" src="js/controller/crudServer.js"></script>
+	<script type="text/javascript" src="js/controller/crudLokal.js"></script>
+	<script type="text/javascript" src="js/controller/crud.js"></script>
+
+	<script type="text/javascript" src="js/controller/mainView.js"></script>
+	<script type="text/javascript" src="js/controller/topicView.js"></script>
+	<script type="text/javascript" src="js/controller/objectView.js"></script>
+	<!-- FRM 2 -->
+	<script type="text/javascript" src="js/controller/editView.js"></script>
+	<!-- FRM3 -->
+	<script type="text/javascript" src="js/controller/allObject.js"></script>
+	<!-- MME3 -->
+	<script type="text/javascript" src="js/controller/mme3.js"></script>
+
+<!--	<script src="js/lib/navigation.js" type="text/javascript"></script>
+	<script src="js/lib/xhr.js" type="text/javascript"></script>
+	<script src="js/lib/sharedutils.js" type="text/javascript"></script>
+	<script src="js/lib/uiutils.js" type="text/javascript"></script>
+	<script src="js/lib/eventhandling.js" type="text/javascript"></script>
+	<script src="js/TopicviewCRUDOperations.js" type="text/javascript"></script>
+	<script src="js/TitleFormViewController.js" type="text/javascript"></script>
+	<script src="js/EinfuehrungstextFormViewController.js" type="text/javascript"></script>
+	<script src="js/EditviewViewController.js" type="text/javascript"></script>
+	<script src="js/TopicviewViewController.js" type="text/javascript"></script>-->
+</head>
+<!-- after loading the document, we try to readout a topicview description from the server -->
+<body>
+	<header>
+		<nav>
+			<!-- bind an event listener to this, see mainView -->
+			<a href="#" id="navigation_button" class="navigation-back detail-back">&lt;&lt; Zurück</a> 
+			<span class="crud-control"><input type="checkbox" checked name="crudServer" id="crudServer" disabled><span id="crudServerShow"> REST</span> <input type="checkbox" checked name="crudLocal" id="crudLocal" disabled><span id="crudLocalShow"> Lokal </span><button id="crudStart" disabled>Start</button></span>
+		</nav>
+	</header>
+	<article id="mainview">
+		<h1 id="topicTitle">Lorem Ipsum</h1>
+		<div id="contentscrollview">
+			<div id="contentview">
+				<div id="column_left" class="render_container">
+					<section id="objekt">
+						<!-- Abbildung eines Objekts gemäß CSS-Aufgabe -->
+						<header>
+							<!-- Überschrift von Abschnitten werden in Header eingebunden, -->
+							<!-- um sie vom Hauptteil des Unterabschnitts semantisch abzugrenzen -->
+							<h2>Zeitdokumente</h2>
+							<span id="objektKringel"></span>
+						</header>
+						<figure>
+							<img alt="Abbildung zwei Männer" class="detail-switch" />
+							<figcaption>
+								Programmheft zur Urauff&uuml;hrung
+							</figcaption>
+						</figure>
+					</section>
+				</div>
+				<div id="column_middle" class="render_container"></div>
+				<div id="column_right" class="render_container"></div>
+			</div>
+		</div>
+		<section class="video">
+			<video id="videoElement" controls>
+	        	<source src="media/video.ogv"></source>
+	   		</video>
+		</section>
+	</article>
+	<footer>
+		<nav>
+			<ul id="actionbar_title">
+				<li>
+					<a id="createTopicViewAction" href="#">Erstellen</a>
+				</li>
+				<li>
+					<a id="updateTopicViewAction" href="#">Ändern</a>
+				</li>
+				<li>
+					<a id="deleteTopicViewAction" href="#">Löschen</a>
+				</li>
+				<li>
+					<a href="#" class="change-actionbar">&gt;&gt;</a>
+				</li>
+			</ul>
+			<ul id="actionbar_object" class="hidden">
+				<li>
+					<a href="#" class="change-actionbar">&lt;&lt;</a>
+				</li>
+				<li>
+					<a id="createObjectAction" href="#">Neues Objekt</a>
+				</li>
+				<li>
+					<a id="updateObjectAction" href="#">Objekt ändern</a>
+				</li>
+				<li>
+					<a id="deleteObjectAction" href="#">Objekt löschen</a>
+				</li>
+			</ul>
+		</nav>
+	</footer>
+	<!-- the editview that is layed over the rest of the view. Notice how keeping/closing the editview is handled in the onclick handlers in EditviewViewController! -->
+	<div id="editview">
+		<!-- the tabview solution is taken from http://www.sitepoint.com/css3-tabs-using-target-selector/ -->
+		<article class="tabsContainer">
+			<section id="tab_title">
+				<h2><a href="#tab_title">Titel</a></h2>
+				<p>
+					<form name="form_title" action="/api/topicview" method="post" onsubmit="return confirm('submit?')">
+						<input name="title" placeholder="Titel" required="required" autofocus="autofocus" autocomplete="off"/>
+						<input type="submit" value="Erzeugen" name="submit"/>
+					</form>
+					<button id="deleteTitleButton">
+						Löschen
+					</button>
+				</p>
+			</section>
+		</article>
+	</div>
+	<!-- another div: the toast that will popup from time to time -->
+	<div class="toast">
+		lorem ipsum
+	</div>
+	<!-- and finally a div that contains the tabs that will be added to the tabs container on creating new elements -->
+	<div class="inactiveTabsContainer">
+		<section id="tab_newElement">
+			<h2><a href="#tab_newElement">+</a></h2>
+			<p>
+				<datalist id="elementTypes">
+					<option value="zeitdokumente">Zeitdokumente</option>
+					<option value="einfuehrungstext">Einführungstext</option>
+					<option value="textauszug">Textauszug</option>
+					<option value="objekt">Objekt</option>
+				</datalist>
+				<form id="form_addElement">
+					<!-- <input name="elementType" placeholder="Elementtyp" list="elementTypes" autocomplete="off"> -->
+					<select name="elementType" list="elementTypes">
+						<option value="zeitdokumente">Zeitdokumente</option>
+						<option value="einfuehrungstext">Einführungstext</option>
+						<option value="textauszug" disabled="disabled">Textauszug</option>
+						<option value="objekt">Objekt</option>
+					</select>
+					<input type="submit" value="Erzeugen"/>
+				</form>
+			</p>
+		</section>
+		<section id="tab_einfuehrungstext">
+			<h2><a href="#tab_einfuehrungstext">Einführungstext</a></h2>
+			<!-- we use a multipart form -->
+			<form id="form_einfuehrungstext" action="http2mdb/content" method="post" enctype="multipart/form-data" target="multipart_target">
+				<output class="validationMessages"></output>
+				<!-- the radio buttons and labels for selecting how to provide the content -->
+				<fieldset class="radiogroup">
+					<input type="radio" name="contentMode" value="href" id="contentMode_txt"/>
+					<label for="contentMode_txt">Text eingeben</label>
+					<input type="radio" name="contentMode" value="fileupload" id="contentMode_fileupload"/>
+					<label for="contentMode_fileupload">Datei hochladen</label>
+					<input type="radio" name="contentMode" value="fileupload_formdata" id="contentMode_fileupload_formdata"/>
+					<label for="contentMode_fileupload_formdata">Datei mit FormData hochladen</label>
+				</fieldset>
+				<!-- the two options for identifying the content that depend on the chosen contentMode -->
+				<textarea name="txt" required="required" placeholder="Einführungstext" disabled="disabled" cols="40" rows="3"></textarea>
+				<input type="file" name="src" required="required" disabled="disabled"/>
+				<!-- two hidden fields that are hard-coded here and will be used for creating the einfuehrungstext object -->
+				<input type="hidden" name="type" value="einfuehrungstext"/>
+				<input type="hidden" name="render_container" value="left"/>
+				<!-- the submit action -->
+				<input type="submit" value="Erzeugen"/>
+			</form>
+		</section>
+		<section id="tab_objekt">
+			<h2><a href="#tab_objekt">Objekt</a></h2>
+			<div class="scrollview">
+			<p>
+				<fieldset class="radiogroup">
+					<input type="radio" name="contentMode" value="href" id="object_upload_via_url"/>
+					<label for="object_upload_via_url">Url eingeben</label>
+					<input type="radio" name="contentMode" value="fileupload" id="object_upload_via_upload"/>
+					<label for="object_upload_via_upload">Datei hochladen</label>
+					<input type="radio" name="contentMode" value="fileupload_formdata" id="object_choose_by_list"/>
+					<label for="object_choose_by_list">Objekt aus Liste ausw&auml;hlen</label>
+					<span id="create_a_new_object">Neues Objekt erstellen?</span>
+				</fieldset>
+				<form name="form_objekt" action="/api/object/" method="post" onsubmit="return confirm('submit?')" enctype="multipart/form-data">
+					<p>Objekt-ID: <span id="objekt_id_for_form_upload">Wird automatisch vergeben.</span><input type="hidden" value="" name="_id" /></p>
+					<input name="title" placeholder="Titel" required="required" autofocus="autofocus" autocomplete="off"/>
+					<img src="" class="object-img-thumbnail object-edit-img" id="pictureprev_object">
+					
+					<input type="url" name="src" class="object-img" placeholder="Bild" required="required" >
+
+					<textarea name="description" class="object-description" placeholder="Beschreibung"></textarea>
+					<input type="submit" value="Erzeugen" name="submit" id="addOrUpdateObjectButton" />
+				</form>
+				<button id="deleteObjectButton">
+					Löschen
+				</button>
+			</p>
+			</div>
+		</section>
+		<section id="tab_objektList">
+			<h2><a href="#tab_objektList">Alle Objekte</a></h2>
+			<div class="scrollview">
+				<table class="object-list">
+					<thead>
+						<tr>
+							<th>Objekt ID</th><th>Titel</th><th>Beschreibung</th><th>Bild</th><th>&amp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="{object_id}">
+							<td>
+								<p class="object-list-id">#{object_id}</p>
+							</td>
+							<td class="object-list-title">
+								<span>{object_title}</span>
+							</td>
+							<td class="object-list-description"><span>#{object_description}</span></td>
+							<td class="object-list-image"><img src="#" alt="{object_title}" class="object-img-thumbnail" /></td>
+							<td><p><a href="#" class="object-list-addToTopicView">Zuweisen</a></p></td>
+						</tr>
+
+					</tbody>
+				</table>
+<!-- 
+				<p>
+					Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+-->				
+			</div>
+		</section>
+	</div>
+	<!-- the invisible target of a file upload that will receive a script from the http response. The script will callback the editview.js -->
+	<!-- <iframe name="multipart_target" src="#"></iframe>-->
+</body>
+</html>
