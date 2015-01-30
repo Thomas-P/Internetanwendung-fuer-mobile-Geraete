@@ -7,7 +7,6 @@ var url = require('url');
 var fs = require('fs');
 var sys = require('sys');
 var domain = require('domain');
-
 //var utils = require("./njsimpl/njsutils");
 //var http2mdb = require("./njsimpl/http2mdb");
 
@@ -77,12 +76,10 @@ server = http.createServer(function(req, res) {
         console.log("http request callback: trying to serve path: " + path);
 
         // check whether we have an api call or need to serve a file
-        /*
         if (path.indexOf(apiString) == 0) {
             console.log("http request callback: got a call to the http2mdb api. Will continue processing there...");
             return restServer.run(req, res);
         }
-        */
 
         if (path == '/') {
             // if the root is accessed we serve the main html document
