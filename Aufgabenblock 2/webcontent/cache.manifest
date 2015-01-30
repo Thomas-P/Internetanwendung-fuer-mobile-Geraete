@@ -1,0 +1,57 @@
+CACHE MANIFEST
+
+# Caching all html
+topicview.html
+titlelist.html
+
+# Javascript
+js/lib/require.js
+js/lib/debug.js
+js/lib/helper.js
+js/lib/xhr.js
+js/lib/eventHandler.js
+js/lib/navigation.js
+js/lib/longPress.js
+js/lib/objectId.js
+js/controller/crudServer.js
+js/controller/crudLokal.js
+js/controller/crud.js
+js/controller/mainView.js
+js/controller/topicView.js
+js/controller/objectView.js
+js/controller/editView.js
+js/controller/allObject.js
+js/controller/mme3.js
+js/lib/require.js
+js/lib/debug.js
+js/lib/xhr.js
+js/lib/helper.js
+js/controller/titleListView.js
+
+# CSS
+css/navigation.css
+css/topicview.css
+css/editview.css
+css/uiutils.css
+css/css.css
+css/objekt.css
+css/objektListe.css
+css/mme3.css
+css/crud.css
+css/titlelist.css
+css/navigation.css
+
+#IMG
+css/img/Kringel01.png
+
+#JSON
+data/titlelist.json
+
+FALLBACK:
+topicview.html /topicview.html
+
+NETWORK:
+api
+*
+
+
